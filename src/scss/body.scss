@@ -1,0 +1,52 @@
+@use "./_variables" as *;
+@use "./styles.scss";
+.upper-section {
+  background: url("../assets/images/back.jpg") no-repeat center center fixed;
+  height: 80vh;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.banner {
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.banner-heading {
+  font-size: 3.5rem;
+  color: #ccc;
+  text-align: center;
+}
+
+.search-container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.search-section {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.search-button {
+  background: #eee;
+  color: #4d4746;
+  position: absolute;
+  bottom: 0;
+  right: 4.4rem;
+  border-radius: 0.8em;
+  font-size: 1.2rem;
+}
+
+.search-input {
+  background: #eee;
+  outline: none;
+  width: 91%;
+  border-radius: 0.8rem;
+  font-size: 1.2rem;
+}

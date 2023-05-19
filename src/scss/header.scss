@@ -1,0 +1,49 @@
+.header {
+  width: 100%;
+  z-index: 999999;
+  -webkit-transition: all ease-out 0.5s;
+  -moz-transition: all ease-out 0.5s;
+  -o-transition: all ease-out 0.5s;
+  transition: all ease-out 0.5s;
+  position: fixed;
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    a {
+      text-decoration: none;
+      line-height: 5rem;
+      color: #fff;
+      img {
+        height: 100%;
+      }
+    }
+    ul {
+      li {
+        display: inline-block;
+        margin-left: 3.5rem;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.signup-button {
+  background: #656322;
+  padding: 0.8rem 2rem;
+  border-radius: 0.5rem;
+}
+
+.header-transparent {
+  @extend .header;
+  background: transparent;
+}
+
+.header-background {
+  @extend .header;
+  background: #212020;
+}
+
+.static-position {
+  position: static;
+}
