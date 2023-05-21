@@ -24,16 +24,21 @@ body {
 }
 
 .btn {
-  padding: 1rem 1.5rem;
-  background: #000;
+  background: #656322;
+  padding: 0.8rem 2rem;
+  border-radius: 0.5rem;
   color: #fff;
-  border: none;
-  border-radius: 0.4rem;
-  outline: none;
-  cursor: pointer;
 }
 
 .divider {
   height: 40vh;
   border: 1px solid #eee;
+}
+
+.error-text {
+  color: rgb(183, 51, 51);
+}
+
+.success-text {
+  color: rgb(99, 201, 99);
 }

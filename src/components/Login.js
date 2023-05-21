@@ -1,15 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useContext } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import "../scss/forms.scss";
 
 const Login = () => {
   const navigate = useNavigate();
   return (
     <div className="form-container">
-      <div className="login-text">
+      {/* <div className="login-text">
         <h1 className="text-3xl font-bold">
           Login if you have signed up already
         </h1>
@@ -17,8 +14,8 @@ const Login = () => {
         <Link to="/register" className="text-2xl">
           Sign Up Here
         </Link>
-      </div>
-      <div className="divider"></div>
+      </div> */}
+
       <div className="login-form">
         {/* isLoginError && (
           <h4 className="error-text">

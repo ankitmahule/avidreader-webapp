@@ -2,7 +2,7 @@
 @use "./styles.scss";
 .upper-section {
   background: url("../assets/images/back.jpg") no-repeat center center fixed;
-  height: 80vh;
+  height: 100vh;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -13,18 +13,16 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .banner-heading {
   font-size: 3.5rem;
   color: #ccc;
-  text-align: center;
 }
 
 .search-container {
   width: 50%;
-  margin: 0 auto;
 }
 
 .search-section {
