@@ -10,7 +10,7 @@ const Body = () => {
           <section className="container flex justify-evenly items-center">
             <section className="w-1/2 search-container">
               <h1 className="banner-heading">
-                Quotes and Excerpts from Popular Books and People...
+                Quotes and Excerpts from to refresh your day...
               </h1>
               {/* <div className="search-section">
               <input
@@ -30,17 +30,6 @@ const Body = () => {
           </section>
         </section>
       </section>
-      <section className="h-96"></section>
-      <section className="h-96"></section>
-      <section className="h-96"></section>
-      <section className="h-96"></section>
-      <section className="h-96"></section>
-      <section className="h-96"></section>
-      <section className="h-96"></section>
-      <section className="h-96"></section>s
-      {users.map((eachUser) => (
-        <h1 key={eachUser._id}>{eachUser.name}</h1>
-      ))}
     </main>
   );
 };

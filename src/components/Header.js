@@ -41,15 +41,6 @@ const Header = () => {
             <li>
               <Link to="/about">About us</Link>
             </li>
-
-            <li>
-              <Link to="/login">Sign In</Link>
-            </li>
-            <li>
-              <Link className="btn" to="/register">
-                Create Account
-              </Link>
-            </li>
           </ul>
         </div>
       </nav>

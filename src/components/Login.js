@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../scss/forms.scss";
 
 const Login = () => {
@@ -86,10 +86,23 @@ const Login = () => {
                   component="div"
                 />
               </div>
-              <div className="form-field">
+              <div className="form-field flex justify-between items-center">
+                <Link className="forgot-password">Forgot Password?</Link>
                 <button className="btn" type="submit" disabled={isSubmitting}>
-                  Submit
+                  Sign In
                 </button>
+              </div>
+              <div className="social-login flex justify-evenly items-center">
+                <div>
+                  <span className="text-4xl ml-4 fa-brands fa-facebook"></span>
+                  <span className="text-4xl ml-4 fa-brands fa-google"></span>
+                </div>
+              </div>
+              <div className="form-field text-center">New User?</div>
+              <div className="form-field text-center">
+                <Link className="btn" to="/register">
+                  Create Account
+                </Link>
               </div>
             </Form>
           )}
