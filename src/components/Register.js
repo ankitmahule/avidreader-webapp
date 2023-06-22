@@ -5,8 +5,10 @@ import "../scss/forms.scss";
 
 const Register = () => {
   return (
-    <div className="form-container">
-      <div className="login-text">
+    <div className="registration-form">
+      <div class="form-content">
+        <h1 className="text-4xl text-center mt-10">New User Registration</h1>
+        {/* <div className="login-text">
         <h1 className="text-3xl font-bold">
           Login if you have signed up already
         </h1>
@@ -15,9 +17,8 @@ const Register = () => {
           Sign In Here
         </Link>
       </div>
-      <div className="divider"></div>
+      <div className="divider"></div> */}
 
-      <div className="login-form">
         {/* isSignupSucces && (
           <h4 className="success-text">
             User Registration Successful. Please &nbsp;

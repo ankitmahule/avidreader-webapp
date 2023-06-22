@@ -21,18 +21,30 @@
     padding: 1rem 3rem;
     background: #eee;
     border-radius: 0.5rem;
-    input {
-      padding: 0.7rem;
-      border-radius: 0.5rem;
-      width: 100%;
-      border: 1px solid #aaa;
-    }
-    .form-field {
-      margin: 2rem 0;
-    }
+
     .social-login {
       color: $button-color;
       cursor: pointer;
     }
+  }
+}
+
+input {
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  width: 100%;
+  border: 1px solid #aaa;
+}
+.form-field {
+  margin: 2rem 0;
+}
+
+.registration-form {
+  display: flex;
+  height: 40rem;
+  align-items: center;
+  justify-content: center;
+  .form-content {
+    width: 40%;
   }
 }

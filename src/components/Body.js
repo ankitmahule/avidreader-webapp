@@ -10,7 +10,7 @@ const Body = () => {
           <section className="container flex justify-evenly items-center">
             <section className="w-1/2 search-container">
               <h1 className="banner-heading">
-                Quotes and Excerpts from to refresh your day...
+                Share &amp; Read Quotes and Excerpts &amp; refresh your day...
               </h1>
               {/* <div className="search-section">
               <input
