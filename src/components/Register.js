@@ -2,31 +2,16 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "../scss/forms.scss";
+import useUsers from "../utils/useUsers";
 
 const Register = () => {
+  const { userRegResponse, submitRequest } = useUsers();
   return (
     <div className="registration-form">
-      <div class="form-content">
+      <div className="form-content">
         <h1 className="text-4xl text-center mt-10">New User Registration</h1>
-        {/* <div className="login-text">
-        <h1 className="text-3xl font-bold">
-          Login if you have signed up already
-        </h1>
-        <h2 className="text-4xl font-bold">OR</h2>
-        <Link to="/login" className="text-2xl">
-          Sign In Here
-        </Link>
-      </div>
-      <div className="divider"></div> */}
-
-        {/* isSignupSucces && (
-          <h4 className="success-text">
-            User Registration Successful. Please &nbsp;
-            <Link to="/login">Sign In Here</Link>
-          </h4>
-        ) */}
         <Formik
-          initialValues={{ email: "", password: "", contactno: "" }}
+          initialValues={{ email: "", password: "", contactNo: "" }}
           validate={(values) => {
             const errors = {};
             if (!values.email) errors.email = "This field is required";
@@ -39,9 +24,9 @@ const Register = () => {
             else if (values.password.length < 8)
               errors.password = "Minimum length of password should be >= 8";
 
-            if (!values.contactno) errors.contactno = "This field is required";
-            else if (!/^[0-9]{10}$/.test(values.contactno))
-              errors.contactno =
+            if (!values.contactNo) errors.contactNo = "This field is required";
+            else if (!/^[0-9]{10}$/.test(values.contactNo))
+              errors.contactNo =
                 "Contact no. should be of 10 digits only and a number";
             return errors;
           }}
@@ -50,15 +35,20 @@ const Register = () => {
               ...user,
               email: values.email,
               password: values.password,
-              contactNo: values.contactno,
+              contactNo: values.contactNo,
             });
             setIsSignupSuccess(true); */
-            resetForm();
+            submitRequest(values);
+            // console.log(values);
+            // resetForm();
             setSubmitting(false);
+
+            console.log(userRegResponse);
           }}
         >
           {({ isSubmitting }) => (
             <Form>
+              <p>{userRegResponse?.errorCode ? userRegResponse.message : ""}</p>
               <div className="form-field">
                 <Field
                   type="email"
@@ -89,14 +79,14 @@ const Register = () => {
               <div className="form-field">
                 <Field
                   type="text"
-                  name="contactno"
+                  name="contactNo"
                   placeholder="Enter Contact No."
                   autoComplete="off"
                   patter="[0-9]+"
                 />
                 <ErrorMessage
                   className="error-text"
-                  name="contactno"
+                  name="contactNo"
                   component="div"
                 />
               </div>

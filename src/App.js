@@ -4,6 +4,7 @@ import Body from "./components/Body";
 import Footer from "./components/Footer";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
@@ -31,6 +32,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
       },
     ],
   },

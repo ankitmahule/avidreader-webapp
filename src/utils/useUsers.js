@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react";
-import { USERS_API } from "../shared/constants";
+import { useState } from "react";
+import { REGISTER_API } from "../shared/constants";
 const useUsers = () => {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    getUsers();
-  }, []);
+  const [userRegResponse, setUserRegResponse] = useState([]);
 
-  async function getUsers() {
-    const response = await fetch(USERS_API);
+  async function submitRequest(reqUser) {
+    const response = await fetch(REGISTER_API, {
+      method: "POST",
+      body: JSON.stringify(reqUser),
+      headers: { "content-type": "application/json" },
+    });
+
     const json = await response.json();
-    console.table(json);
-    setUsers(json);
+    setUserRegResponse(json);
   }
 
-  return users;
+  return { userRegResponse, submitRequest };
 };
 
 export default useUsers;
