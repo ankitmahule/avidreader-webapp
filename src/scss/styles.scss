@@ -1,3 +1,4 @@
+@import "./variables";
 * {
   margin: 0;
   padding: 0;
@@ -33,13 +34,23 @@ body {
 
 .divider {
   height: 40vh;
-  border: 1px solid #eee;
+  border: 1px solid $light-gray;
 }
 
 .error-text {
-  color: rgb(183, 51, 51);
+  color: $error-red;
 }
 
 .success-text {
-  color: rgb(99, 201, 99);
+  color: $success-green;
+}
+
+.alert-response {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: #fef4f5;
+  color: #c5302f;
+  margin-top: 2rem;
+  border: 1px solid #c5302f;
+  border-radius: 0.5rem;
 }

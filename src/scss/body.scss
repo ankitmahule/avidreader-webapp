@@ -1,5 +1,4 @@
-@use "./_variables" as *;
-@use "./styles.scss";
+@import "./styles.scss";
 .upper-section {
   background: url("../assets/images/back.jpg") no-repeat center center fixed;
   height: 100vh;
@@ -42,7 +41,7 @@
 }
 
 .search-input {
-  background: #eee;
+  background: $light-gray;
   outline: none;
   width: 91%;
   border-radius: 0.8rem;

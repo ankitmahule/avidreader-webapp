@@ -3,13 +3,16 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "../scss/forms.scss";
 import useUsers from "../utils/useUsers";
+import Alert from "./Alert";
 
 const Register = () => {
   const { userRegResponse, submitRequest } = useUsers();
   return (
     <div className="registration-form">
       <div className="form-content">
-        <h1 className="text-4xl text-center mt-10">New User Registration</h1>
+        <h1 className="text-4xl text-center mt-10 text-[#656322]">
+          New User Registration
+        </h1>
         <Formik
           initialValues={{ email: "", password: "", contactNo: "" }}
           validate={(values) => {
@@ -31,24 +34,17 @@ const Register = () => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            /* setUser({
-              ...user,
-              email: values.email,
-              password: values.password,
-              contactNo: values.contactNo,
-            });
-            setIsSignupSuccess(true); */
             submitRequest(values);
-            // console.log(values);
-            // resetForm();
+            resetForm();
             setSubmitting(false);
-
-            console.log(userRegResponse);
           }}
         >
           {({ isSubmitting }) => (
             <Form>
-              <p>{userRegResponse?.errorCode ? userRegResponse.message : ""}</p>
+              {!isSubmitting && userRegResponse.length > 0 && (
+                <Alert {...userRegResponse}></Alert>
+              )}
+
               <div className="form-field">
                 <Field
                   type="email"
