@@ -9,7 +9,8 @@ body {
 }
 body {
   margin: 0;
-  font-family: "Fira Sans", sans-serif;
+  font-family: "Encode Sans", sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
 @tailwind base;
@@ -39,18 +40,33 @@ body {
 
 .error-text {
   color: $error-red;
+  border: 1px solid #c5302f;
+  color: #c5302f;
+  background: #fef4f5;
+}
+
+.field-error {
+  color: #c5302f;
 }
 
 .success-text {
   color: $success-green;
+  border: 1px solid #77c59f;
+  color: #53947a;
+  background: #f0fcf5;
 }
 
 .alert-response {
   width: 100%;
   padding: 0.5rem 1rem;
-  background: #fef4f5;
-  color: #c5302f;
   margin-top: 2rem;
-  border: 1px solid #c5302f;
   border-radius: 0.5rem;
+}
+
+button[disabled] {
+  opacity: 0.6;
+}
+
+.link {
+  color: rgb(41, 41, 163);
 }

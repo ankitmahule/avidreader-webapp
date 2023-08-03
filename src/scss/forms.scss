@@ -24,7 +24,9 @@
 
     .social-login {
       color: $button-color;
-      cursor: pointer;
+      span {
+        cursor: pointer;
+      }
     }
   }
 }

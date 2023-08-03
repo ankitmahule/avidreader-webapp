@@ -6,7 +6,7 @@ import useUsers from "../utils/useUsers";
 import Alert from "./Alert";
 
 const Register = () => {
-  const { userRegResponse, submitRequest } = useUsers();
+  const { userResponse, submitRequest } = useUsers(null);
   return (
     <div className="registration-form">
       <div className="form-content">
@@ -14,6 +14,7 @@ const Register = () => {
           New User Registration
         </h1>
         <Formik
+          validateOnMount={true}
           initialValues={{ email: "", password: "", contactNo: "" }}
           validate={(values) => {
             const errors = {};
@@ -39,12 +40,12 @@ const Register = () => {
             setSubmitting(false);
           }}
         >
-          {({ isSubmitting }) => (
+          {({ isValid, isSubmitting }) => (
             <Form>
-              {!isSubmitting && userRegResponse.length > 0 && (
-                <Alert {...userRegResponse}></Alert>
-              )}
-
+              {!isSubmitting &&
+                (userResponse.errorCode || userResponse.status) && (
+                  <Alert {...userResponse}></Alert>
+                )}
               <div className="form-field">
                 <Field
                   type="email"
@@ -54,7 +55,7 @@ const Register = () => {
                 />
 
                 <ErrorMessage
-                  className="error-text"
+                  className="field-error"
                   name="email"
                   component="div"
                 />
@@ -67,7 +68,7 @@ const Register = () => {
                   autoComplete="off"
                 />
                 <ErrorMessage
-                  className="error-text"
+                  className="field-error"
                   name="password"
                   component="div"
                 />
@@ -81,13 +82,13 @@ const Register = () => {
                   patter="[0-9]+"
                 />
                 <ErrorMessage
-                  className="error-text"
+                  className="field-error"
                   name="contactNo"
                   component="div"
                 />
               </div>
               <div className="form-field">
-                <button className="btn" type="submit" disabled={isSubmitting}>
+                <button className="btn" type="submit" disabled={!isValid}>
                   Submit
                 </button>
               </div>

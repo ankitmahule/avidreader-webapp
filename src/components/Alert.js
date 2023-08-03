@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 const Alert = ({ message, errorCode }) => {
   const [isAlertMessageVisible, setIsAlertVisible] = useState(true);
 
   useEffect(() => {
-    // ssetIsAlertVisible(true);
-    const alertTime = setTimeout(() => {
-      setIsAlertVisible(false);
-    }, 3000);
+    let alertTime;
+    if (errorCode) {
+      alertTime = setTimeout(() => {
+        setIsAlertVisible(false);
+      }, 3000);
+    }
     return () => {
-      clearTimeout(alertTime);
+      if (alertTime) clearTimeout(alertTime);
     };
-  }, []);
+  }, [errorCode]);
 
   return (
     isAlertMessageVisible && (
@@ -22,7 +24,17 @@ const Alert = ({ message, errorCode }) => {
             : "success-text alert-response"
         }
       >
-        {message}
+        {errorCode ? (
+          message
+        ) : (
+          <>
+            {message}. Please proceed with&nbsp;
+            <Link className="link" to="/">
+              Login
+            </Link>
+            &nbsp;and enjoy the app.
+          </>
+        )}
       </p>
     )
   );

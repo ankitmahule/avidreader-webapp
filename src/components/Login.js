@@ -1,28 +1,22 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import "../scss/forms.scss";
-
+import useUsers from "../utils/useUsers";
+import Alert from "./Alert";
+import { useEffect } from "react";
 const Login = () => {
   const navigate = useNavigate();
+  const { userResponse, submitLoginRequest } = useUsers(null);
+  useEffect(() => {
+    if (userResponse.status === 200) {
+      navigate("/dashboard");
+    }
+  }, [userResponse]);
   return (
     <div className="form-container">
-      {/* <div className="login-text">
-        <h1 className="text-3xl font-bold">
-          Login if you have signed up already
-        </h1>
-        <h2 className="text-4xl font-bold">OR</h2>
-        <Link to="/register" className="text-2xl">
-          Sign Up Here
-        </Link>
-      </div> */}
-
       <div className="login-form">
-        {/* isLoginError && (
-          <h4 className="error-text">
-            Incorrect Login, Please Check User Email or Password
-          </h4>
-        ) */}
         <Formik
+          validateOnMount={true}
           initialValues={{ email: "", password: "" }}
           validate={(values) => {
             const errors = {};
@@ -40,7 +34,9 @@ const Login = () => {
             }
             return errors;
           }}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            submitLoginRequest(values);
+            // resetForm();
             setSubmitting(false);
             /* if (
               values?.email !== user?.email ||
@@ -54,11 +50,14 @@ const Login = () => {
               ...user,
               isUserLoggedIn: true,
             }); */
-            navigate("/");
+            // navigate("/");
           }}
         >
-          {({ isSubmitting }) => (
+          {({ isValid, isSubmitting }) => (
             <Form>
+              {!isSubmitting && userResponse.errorCode && (
+                <Alert {...userResponse}></Alert>
+              )}
               <div className="form-field">
                 <Field
                   type="email"
@@ -68,7 +67,7 @@ const Login = () => {
                 />
 
                 <ErrorMessage
-                  className="error-text"
+                  className="field-error"
                   name="email"
                   component="div"
                 />
@@ -81,22 +80,20 @@ const Login = () => {
                   autoComplete="off"
                 />
                 <ErrorMessage
-                  className="error-text"
+                  className="field-error"
                   name="password"
                   component="div"
                 />
               </div>
               <div className="form-field flex justify-between items-center">
                 <Link className="forgot-password">Forgot Password?</Link>
-                <button className="btn" type="submit" disabled={isSubmitting}>
+                <button className="btn" type="submit" disabled={!isValid}>
                   Sign In
                 </button>
               </div>
-              <div className="social-login flex justify-evenly items-center">
-                <div>
-                  <span className="text-4xl ml-4 fa-brands fa-facebook"></span>
-                  <span className="text-4xl ml-4 fa-brands fa-google"></span>
-                </div>
+              <div className="text-center social-login">
+                <span className="text-4xl ml-4 fa-brands fa-facebook"></span>
+                <span className="text-4xl ml-4 fa-brands fa-google"></span>
               </div>
               <div className="form-field text-center">New User?</div>
               <div className="form-field text-center">
