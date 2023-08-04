@@ -11,7 +11,7 @@ const Login = () => {
     if (userResponse.status === 200) {
       navigate("/dashboard");
     }
-  }, [userResponse]);
+  }, [userResponse, navigate]);
   return (
     <div className="form-container">
       <div className="login-form">
@@ -36,21 +36,8 @@ const Login = () => {
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             submitLoginRequest(values);
-            // resetForm();
+            resetForm();
             setSubmitting(false);
-            /* if (
-              values?.email !== user?.email ||
-              values?.password !== user?.password
-            ) {
-              setIsLoginError(true);
-              return;
-            }
-            setIsLoginError(false);
-            setUser({
-              ...user,
-              isUserLoggedIn: true,
-            }); */
-            // navigate("/");
           }}
         >
           {({ isValid, isSubmitting }) => (
