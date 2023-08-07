@@ -5,14 +5,21 @@ import Footer from "./components/Footer";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
+import { Provider } from "react-redux";
+import store from "./utils/store";
+import { PersistGate } from "redux-persist/integration/react";
+import persistStore from "redux-persist/es/persistStore";
 
+const persistor = persistStore(store);
 function App() {
   return (
-    <>
-      <Header></Header>
-      <Outlet></Outlet>
-      {/* <Footer></Footer> */}
-    </>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <Header></Header>
+        <Outlet></Outlet>
+        {/* <Footer></Footer> */}
+      </PersistGate>
+    </Provider>
   );
 }
 

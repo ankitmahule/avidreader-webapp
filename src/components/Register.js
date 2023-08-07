@@ -4,9 +4,15 @@ import { Link } from "react-router-dom";
 import "../scss/forms.scss";
 import useUsers from "../utils/useUsers";
 import Alert from "./Alert";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../utils/auth/authActions";
 
 const Register = () => {
-  const { userResponse, submitRequest } = useUsers(null);
+  // const { userResponse, submitRequest } = useUsers(null);
+  const { loading, userInfo, error, success } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
   return (
     <div className="registration-form">
       <div className="form-content">
@@ -35,17 +41,17 @@ const Register = () => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            submitRequest(values);
+            // submitRequest(values);
+            dispatch(registerUser(values));
             resetForm();
             setSubmitting(false);
           }}
         >
           {({ isValid, isSubmitting }) => (
             <Form>
-              {!isSubmitting &&
-                (userResponse.errorCode || userResponse.status) && (
-                  <Alert {...userResponse}></Alert>
-                )}
+              {!isSubmitting && (error || success) && (
+                <Alert {...(error ? error : success)}></Alert>
+              )}
               <div className="form-field">
                 <Field
                   type="email"
@@ -88,8 +94,12 @@ const Register = () => {
                 />
               </div>
               <div className="form-field">
-                <button className="btn" type="submit" disabled={!isValid}>
-                  Submit
+                <button
+                  className="btn"
+                  type="submit"
+                  disabled={!isValid || loading}
+                >
+                  {loading ? "Loading" : "Submit"}
                 </button>
               </div>
             </Form>
