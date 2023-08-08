@@ -9,9 +9,7 @@ import { userLogin } from "../utils/auth/authActions";
 const Login = () => {
   const navigate = useNavigate();
   // const { userResponse, submitLoginRequest } = useUsers(null);
-  const { loading, userInfo, error, success } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, error, success } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
     console.log(success);

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "../scss/header.scss";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Header = () => {
   const [headerBackground, setHeaderBackground] =
     useState("header-transparent");
@@ -23,6 +24,9 @@ const Header = () => {
       window.removeEventListener("scroll", listenScrollEvent);
     };
   }, []);
+
+  const { userInfo } = useSelector((state) => state.auth);
+
   return (
     <header
       className={
@@ -38,9 +42,11 @@ const Header = () => {
 
         <div className="right">
           <ul>
-            <li>
-              <Link to="/about">About us</Link>
-            </li>
+            {!userInfo && (
+              <li>
+                <Link to="/about">About us</Link>
+              </li>
+            )}
           </ul>
         </div>
       </nav>
