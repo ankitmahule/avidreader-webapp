@@ -1,17 +1,24 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import "../scss/forms.scss";
-import useUsers from "../utils/useUsers";
+// import useUsers from "../utils/useUsers";
 import Alert from "./Alert";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../utils/auth/authActions";
 const Login = () => {
   const navigate = useNavigate();
-  const { userResponse, submitLoginRequest } = useUsers(null);
+  // const { userResponse, submitLoginRequest } = useUsers(null);
+  const { loading, userInfo, error, success } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (userResponse.status === 200) {
+    console.log(success);
+    if (success && success.status === 200) {
       navigate("/dashboard");
     }
-  }, [userResponse, navigate]);
+  }, [success, navigate]);
   return (
     <div className="form-container">
       <div className="login-form">
@@ -35,15 +42,15 @@ const Login = () => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            submitLoginRequest(values);
+            dispatch(userLogin(values));
             resetForm();
             setSubmitting(false);
           }}
         >
           {({ isValid, isSubmitting }) => (
             <Form>
-              {!isSubmitting && userResponse.errorCode && (
-                <Alert {...userResponse}></Alert>
+              {!isSubmitting && (error || success) && (
+                <Alert {...(error ? error : success)}></Alert>
               )}
               <div className="form-field">
                 <Field
@@ -74,8 +81,12 @@ const Login = () => {
               </div>
               <div className="form-field flex justify-between items-center">
                 <Link className="forgot-password">Forgot Password?</Link>
-                <button className="btn" type="submit" disabled={!isValid}>
-                  Sign In
+                <button
+                  className="btn"
+                  type="submit"
+                  disabled={!isValid || loading}
+                >
+                  {loading ? "Loading" : "Sign In"}
                 </button>
               </div>
               <div className="text-center social-login">

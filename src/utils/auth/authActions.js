@@ -10,7 +10,6 @@ export const registerUser = createAsyncThunk(
           "content-type": "application/json",
         },
       };
-
       const response = await axios.post(
         REGISTER_API,
         { email, password, contactNo },
@@ -33,10 +32,12 @@ export const userLogin = createAsyncThunk(
           "content-type": "application/json",
         },
       };
-
       const response = await axios.post(LOGIN_API, { email, password }, config);
       console.log(response.data);
-      if (response) return response.data;
+      if (response) {
+        localStorage.setItem("authToken", response.data.authToken);
+        return response.data;
+      }
     } catch (error) {
       if (error) return rejectWithValue(error.data);
     }

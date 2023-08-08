@@ -8,17 +8,17 @@ import Dashboard from "./components/Dashboard";
 import { Provider } from "react-redux";
 import store from "./utils/store";
 import { PersistGate } from "redux-persist/integration/react";
-import persistStore from "redux-persist/es/persistStore";
+// import persistStore from "redux-persist/es/persistStore";
 
-const persistor = persistStore(store);
+// const persistor = persistStore(store);
 function App() {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <Header></Header>
-        <Outlet></Outlet>
-        {/* <Footer></Footer> */}
-      </PersistGate>
+      {/*  <PersistGate persistor={persistor}> */}
+      <Header></Header>
+      <Outlet></Outlet>
+      {/* <Footer></Footer> */}
+      {/*  </PersistGate> */}
     </Provider>
   );
 }
