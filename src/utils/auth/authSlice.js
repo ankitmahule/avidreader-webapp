@@ -12,33 +12,40 @@ const initialState = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
-  extraReducers: {
-    [registerUser.pending]: (state) => {
-      state.loading = true;
+  reducers: {
+    resetAuthState: (state) => {
+      state.loading = false;
       state.error = null;
-    },
-    [registerUser.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.success = payload;
-    },
-    [registerUser.rejected]: (state, { payload }) => {
-      state.loading = false;
-      state.error = payload;
-    },
-    [userLogin.pending]: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    [userLogin.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.success = payload;
-    },
-    [userLogin.rejected]: (state, { payload }) => {
-      state.loading = false;
-      state.error = payload;
+      state.success = null;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(registerUser.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(registerUser.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.success = payload;
+    });
+    builder.addCase(registerUser.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    });
+    builder.addCase(userLogin.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(userLogin.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.success = payload;
+    });
+    builder.addCase(userLogin.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    });
+  },
 });
+export const { resetAuthState } = authSlice.actions;
 
 export default authSlice.reducer;

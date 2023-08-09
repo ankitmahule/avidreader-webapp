@@ -6,9 +6,10 @@ import Alert from "./Alert";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../utils/auth/authActions";
+import { resetAuthState } from "../utils/auth/authSlice";
+
 const Login = () => {
   const navigate = useNavigate();
-  // const { userResponse, submitLoginRequest } = useUsers(null);
   const { loading, error, success } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -16,7 +17,10 @@ const Login = () => {
     if (success && success.status === 200) {
       navigate("/dashboard");
     }
-  }, [success, navigate]);
+    return () => {
+      dispatch(resetAuthState());
+    };
+  }, [success, navigate, dispatch]);
   return (
     <div className="form-container">
       <div className="login-form">

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 const Alert = ({ message, errorCode }) => {
   const [isAlertMessageVisible, setIsAlertVisible] = useState(true);
-
   useEffect(() => {
     let alertTime;
     if (errorCode) {

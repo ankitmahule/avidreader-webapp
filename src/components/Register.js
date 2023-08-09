@@ -1,18 +1,22 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import "../scss/forms.scss";
-import useUsers from "../utils/useUsers";
 import Alert from "./Alert";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../utils/auth/authActions";
+import { resetAuthState } from "../utils/auth/authSlice";
 
 const Register = () => {
   // const { userResponse, submitRequest } = useUsers(null);
-  const { loading, userInfo, error, success } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, error, success } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetAuthState());
+    };
+  }, [dispatch]);
   return (
     <div className="registration-form">
       <div className="form-content">
@@ -41,7 +45,6 @@ const Register = () => {
             return errors;
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            // submitRequest(values);
             dispatch(registerUser(values));
             resetForm();
             setSubmitting(false);
