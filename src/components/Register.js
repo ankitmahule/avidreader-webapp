@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
 import "../scss/forms.scss";
 import Alert from "./Alert";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,6 @@ import { registerUser } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
 
 const Register = () => {
-  // const { userResponse, submitRequest } = useUsers(null);
   const { loading, error, success } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();

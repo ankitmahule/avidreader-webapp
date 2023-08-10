@@ -6,7 +6,14 @@ const Dashboard = () => {
   return (
     <>
       <main className="container flex">
-        <aside className="aside">asdasdasdasdasd</aside>
+        <aside className="aside">
+          <ul>
+            <li>Explore</li>
+            <li>Settings</li>
+            <li>Bookmarks</li>
+            <li>Profile</li>
+          </ul>
+        </aside>
         <section className="read-section">
           <AddQuote></AddQuote>
           <Quotes quotes={quotes}></Quotes>
