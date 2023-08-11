@@ -51,9 +51,10 @@ const Register = () => {
         >
           {({ isValid, isSubmitting }) => (
             <Form>
-              {!isSubmitting && (error || success) && (
-                <Alert {...(error ? error : success)}></Alert>
-              )}
+              {!isSubmitting &&
+                ((error && error !== "Network Error") || success) && (
+                  <Alert {...(error ? error : success)}></Alert>
+                )}
               <div className="form-field">
                 <Field
                   type="email"
