@@ -1,10 +1,19 @@
 .aside {
   width: 20%;
   padding: 2rem 2rem 2rem 0;
+  position: fixed;
 }
 
 .read-section {
   width: 60%;
+  margin-left: 20%;
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
+}
+
+.dashboard-menu {
+  li {
+    margin-bottom: 2rem;
+    font-size: 1.3rem;
+  }
 }

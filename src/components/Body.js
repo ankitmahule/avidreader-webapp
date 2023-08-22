@@ -8,7 +8,7 @@ const Body = () => {
           <section className="container flex justify-evenly items-center">
             <section className="w-1/2 search-container">
               <h1 className="banner-heading">
-                Share, Post, Read Quotes and Excerpts &amp; refresh your day...
+                Share, Post, Read Quotes and Excerpts &amp; Refresh Your Day...
               </h1>
             </section>
             <section className="w-1/2">

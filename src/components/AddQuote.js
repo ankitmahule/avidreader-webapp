@@ -2,7 +2,9 @@ import "../scss/addquote.scss";
 const AddQuote = () => {
   return (
     <>
-      <section className="add-quote">Add quotes here</section>
+      <section className="add-quote">
+        <input type="text" className="quotes-text" />
+      </section>
     </>
   );
 };
