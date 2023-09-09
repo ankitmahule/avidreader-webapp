@@ -1,6 +1,7 @@
 import "../scss/dashboard.scss";
 import AddQuote from "./AddQuote";
 import Quotes from "./Quotes";
+import { Link } from "react-router-dom";
 const Dashboard = () => {
   const quotes = ["First Quotes", "Second Quote", "Third Quote"];
   return (
@@ -9,18 +10,27 @@ const Dashboard = () => {
         <aside className="aside">
           <ul className="dashboard-menu">
             <li>
-              <em className="fa fa-search mr-2"></em>
-              Explore
+              <Link to="/explore">
+                <em className="fa fa-search mr-2"></em>
+                Explore
+              </Link>
             </li>
             <li>
-              <em className="fa fa-cog mr-2"></em>
-              Settings
+              <Link to="/settings">
+                <em className="fa fa-cog mr-2"></em>
+                Settings
+              </Link>
             </li>
             <li>
-              <em className="fa fa-bookmark mr-2"></em>Bookmarks
+              <Link to="/bookmarks">
+                <em className="fa fa-bookmark mr-2"></em>Bookmarks
+              </Link>
             </li>
+
             <li>
-              <em className="fa fa-user mr-2"></em>Profile
+              <Link to="/profile">
+                <em className="fa fa-user mr-2"></em>Profile
+              </Link>
             </li>
           </ul>
         </aside>
