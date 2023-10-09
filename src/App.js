@@ -1,8 +1,6 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
 import Body from "./components/Body";
-import Register from "./components/Register";
-import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import { Provider } from "react-redux";
 import store from "./utils/store";
@@ -25,14 +23,6 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: <Body />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Register />,
       },
       {
         path: "/dashboard",

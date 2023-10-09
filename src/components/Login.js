@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
 
-const Login = () => {
+const Login = ({ toggleLoginRegisterView }) => {
   const navigate = useNavigate();
   const { loading, error, success } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -21,6 +21,10 @@ const Login = () => {
       dispatch(resetAuthState());
     };
   }, [success, navigate, dispatch]);
+
+  function toggleView() {
+    toggleLoginRegisterView(true);
+  }
   return (
     <div className="form-container">
       <div className="login-form">
@@ -39,7 +43,7 @@ const Login = () => {
             if (!values.password) {
               errors.password = "This field is required";
             } else if (values.password.length < 8) {
-              errors.password = "Minimum lenght of password should be >= 8";
+              errors.password = "Minimum length of password should be >= 8";
             }
             return errors;
           }}
@@ -56,13 +60,15 @@ const Login = () => {
                   <Alert {...(error ? error : success)}></Alert>
                 )}
               <div className="form-field">
-                <Field
-                  type="email"
-                  name="email"
-                  placeholder="Enter Email Address"
-                  autoComplete="off"
-                />
-
+                <div className="relative">
+                  <Field
+                    type="email"
+                    name="email"
+                    autoComplete="off"
+                    placeholder=""
+                  />
+                  <label>Email Address</label>
+                </div>
                 <ErrorMessage
                   className="field-error"
                   name="email"
@@ -70,12 +76,15 @@ const Login = () => {
                 />
               </div>
               <div className="form-field">
-                <Field
-                  type="password"
-                  name="password"
-                  placeholder="Enter Password"
-                  autoComplete="off"
-                />
+                <div className="relative">
+                  <Field
+                    type="password"
+                    name="password"
+                    autoComplete="off"
+                    placeholder=""
+                  />
+                  <label>Password</label>
+                </div>
                 <ErrorMessage
                   className="field-error"
                   name="password"
@@ -84,11 +93,7 @@ const Login = () => {
               </div>
               <div className="form-field flex justify-between items-center">
                 <Link className="forgot-password">Forgot Password?</Link>
-                <button
-                  className="btn"
-                  type="submit"
-                  disabled={!isValid || loading}
-                >
+                <button className="btn" type="submit" disabled={loading}>
                   {loading ? "Loading" : "Sign In"}
                 </button>
               </div>
@@ -96,11 +101,13 @@ const Login = () => {
                 <span className="text-4xl ml-4 fa-brands fa-facebook"></span>
                 <span className="text-4xl ml-4 fa-brands fa-google"></span>
               </div>
-              <div className="form-field text-center">New User?</div>
+              <div className="form-field text-center text-gray-400">
+                New User?
+              </div>
               <div className="form-field text-center">
-                <Link className="btn" to="/register">
+                <button className="btn" onClick={toggleView}>
                   Create Account
-                </Link>
+                </button>
               </div>
             </Form>
           )}

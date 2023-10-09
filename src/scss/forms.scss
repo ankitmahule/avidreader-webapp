@@ -19,7 +19,7 @@
   .login-form {
     width: 75%;
     padding: 1rem 3rem;
-    background: #eee;
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 0.5rem;
 
     .social-login {
@@ -36,19 +36,33 @@
     padding: 0.9rem;
     border-radius: 0.5rem;
     width: 100%;
-    border: 1px solid #aaa;
+    border: 1px solid #333;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    & + label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0.9rem;
+      color: #ccc;
+      pointer-events: none;
+      transition: all 0.25s ease;
+    }
+    &:focus,
+    &:not(:placeholder-shown),
+    &:-webkit-autofill {
+      background: #222;
+      outline: none;
+      & + label {
+        top: 0;
+        left: 0.9rem;
+        font-size: 11px;
+        opacity: 1;
+        background: transparent;
+      }
+    }
   }
 }
 .form-field {
   margin: 2rem 0;
-}
-
-.registration-form {
-  display: flex;
-  height: 80vh;
-  align-items: center;
-  justify-content: center;
-  .form-content {
-    width: 40%;
-  }
 }

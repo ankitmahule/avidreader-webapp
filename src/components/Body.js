@@ -1,6 +1,14 @@
+import { useState } from "react";
 import "../scss/body.scss";
 import Login from "./Login";
+import Register from "./Register";
 const Body = () => {
+  const [toggleLoginRegister, setToggleLoginRegister] = useState(false);
+
+  function toggleView(toggleFlag) {
+    setToggleLoginRegister(toggleFlag);
+  }
+
   return (
     <main>
       <section className="upper-section">
@@ -12,7 +20,11 @@ const Body = () => {
               </h1>
             </section>
             <section className="w-1/2">
-              <Login></Login>
+              {!toggleLoginRegister ? (
+                <Login toggleLoginRegisterView={toggleView}></Login>
+              ) : (
+                <Register toggleLoginRegisterView={toggleView}></Register>
+              )}
             </section>
           </section>
         </section>

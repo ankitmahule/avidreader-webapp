@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
 
-const Register = () => {
+const Register = ({ toggleLoginRegisterView }) => {
   const { loading, error, success } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
@@ -16,12 +16,13 @@ const Register = () => {
       dispatch(resetAuthState());
     };
   }, [dispatch]);
+
+  function toggleView() {
+    toggleLoginRegisterView(false);
+  }
   return (
-    <div className="registration-form">
-      <div className="form-content">
-        <h1 className="text-4xl text-center mt-10 text-[#656322]">
-          New User Registration
-        </h1>
+    <div className="form-container">
+      <div className="login-form">
         <Formik
           validateOnMount={true}
           initialValues={{ email: "", password: "", contactNo: "" }}
@@ -56,13 +57,15 @@ const Register = () => {
                   <Alert {...(error ? error : success)}></Alert>
                 )}
               <div className="form-field">
-                <Field
-                  type="email"
-                  name="email"
-                  placeholder="Enter Email Address"
-                  autoComplete="off"
-                />
-
+                <div className="relative">
+                  <Field
+                    type="email"
+                    placeholder=""
+                    name="email"
+                    autoComplete="off"
+                  />
+                  <label>Email Address</label>
+                </div>
                 <ErrorMessage
                   className="field-error"
                   name="email"
@@ -70,12 +73,15 @@ const Register = () => {
                 />
               </div>
               <div className="form-field">
-                <Field
-                  type="password"
-                  name="password"
-                  placeholder="Enter Password"
-                  autoComplete="off"
-                />
+                <div className="relative">
+                  <Field
+                    type="password"
+                    placeholder=""
+                    name="password"
+                    autoComplete="off"
+                  />
+                  <label>Password</label>
+                </div>
                 <ErrorMessage
                   className="field-error"
                   name="password"
@@ -83,27 +89,34 @@ const Register = () => {
                 />
               </div>
               <div className="form-field">
-                <Field
-                  type="text"
-                  name="contactNo"
-                  placeholder="Enter Contact No."
-                  autoComplete="off"
-                  patter="[0-9]+"
-                />
+                <div className="relative">
+                  <Field
+                    type="text"
+                    name="contactNo"
+                    autoComplete="off"
+                    patter="[0-9]+"
+                    placeholder=""
+                  />
+                  <label>Contact No.</label>
+                </div>
                 <ErrorMessage
                   className="field-error"
                   name="contactNo"
                   component="div"
                 />
               </div>
-              <div className="form-field">
-                <button
-                  className="btn"
-                  type="submit"
-                  disabled={!isValid || loading}
+              <div className="flex justify-between items-center">
+                <p
+                  className="text-gray-400 cursor-pointer"
+                  onClick={toggleView}
                 >
-                  {loading ? "Loading" : "Submit"}
-                </button>
+                  Already a user? Sign In
+                </p>
+                <div className="form-field">
+                  <button className="btn" type="submit" disabled={loading}>
+                    {loading ? "Loading" : "Submit"}
+                  </button>
+                </div>
               </div>
             </Form>
           )}
