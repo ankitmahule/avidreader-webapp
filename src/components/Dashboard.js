@@ -1,13 +1,14 @@
 import "../scss/dashboard.scss";
+import "../scss/layout.scss";
 import AddQuote from "./AddQuote";
 import Quotes from "./Quotes";
-import { Link } from "react-router-dom";
+
 const Dashboard = () => {
   const quotes = ["First Quotes", "Second Quote", "Third Quote"];
   return (
     <>
-      <main className="container flex">
-        <section className="read-section">
+      <main className="flex">
+        <section className="main-layout">
           <AddQuote></AddQuote>
           <Quotes quotes={quotes}></Quotes>
         </section>

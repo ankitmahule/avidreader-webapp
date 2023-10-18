@@ -1,0 +1,17 @@
+.main-layout {
+  width: 50%;
+  margin-left: 20%;
+  border-right: 1px solid #ddd;
+}
+.aside {
+  width: 20%;
+  padding: 2rem 5rem;
+  position: fixed;
+  left: 0;
+  right: 0;
+  img {
+    width: 25rem;
+  }
+  height: 100%;
+  border-right: 1px solid #ddd;
+}

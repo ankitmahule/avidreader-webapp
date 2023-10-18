@@ -1,8 +1,15 @@
 .add-quote {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  height: 10rem;
   padding: 2rem;
   width: 100%;
   margin-bottom: 2rem;
+  textarea {
+    width: 100%;
+    padding: 0.5rem 1rem 2rem 1rem;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+    user-select: text;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    resize: none;
+  }
 }

@@ -33,6 +33,11 @@ body {
   cursor: pointer;
 }
 
+.btn-small {
+  @extend .btn;
+  padding: 0.5rem 2rem;
+}
+
 .divider {
   height: 40vh;
   border: 1px solid $light-gray;
