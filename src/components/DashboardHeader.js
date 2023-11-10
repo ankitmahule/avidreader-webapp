@@ -12,25 +12,27 @@ const DashboardHeader = () => {
       <ul className="dashboard-menu">
         <li>
           <Link to="/explore">
-            <em className="fa fa-search mr-2"></em>
-            Explore
+            <p className="fa fa-search mr-2"></p>
+            <p>Explore</p>
           </Link>
         </li>
         <li>
           <Link to="/settings">
-            <em className="fa fa-cog mr-2"></em>
-            Settings
+            <p className="fa fa-cog mr-2"></p>
+            <p>Settings</p>
           </Link>
         </li>
         <li>
           <Link to="/bookmarks">
-            <em className="fa fa-bookmark mr-2"></em>Bookmarks
+            <p className="fa fa-bookmark mr-2"></p>
+            <p>Bookmarks</p>
           </Link>
         </li>
 
         <li>
           <Link to="/profile">
-            <em className="fa fa-user mr-2"></em>Profile
+            <p className="fa fa-user mr-2"></p>
+            <p>Profile</p>
           </Link>
         </li>
       </ul>
