@@ -4,7 +4,7 @@ import "../scss/layout.scss";
 const DashboardHeader = () => {
   return (
     <aside className="aside">
-      <div className="my-4">
+      <div className="my-4 dashboard-logo">
         <Link to="/dashboard">
           <img src={HomeLogo} alt="logo" />
         </Link>

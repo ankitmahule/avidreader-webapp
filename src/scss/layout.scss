@@ -7,6 +7,10 @@ $layout-margin-small: 20%;
   @media screen and (min-width: 912px) and (max-width: 1024px) {
     margin-left: $layout-margin;
   }
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin: 2rem 0;
+  }
 }
 .aside {
   width: 100%;
@@ -18,7 +22,6 @@ $layout-margin-small: 20%;
   img {
     width: 5rem;
   }
-
   @media screen and (min-width: 1024px) {
     width: $layout-margin-small;
     padding: 2rem 5rem;
@@ -33,5 +36,15 @@ $layout-margin-small: 20%;
     width: $layout-margin;
     padding: 2rem 3rem;
     height: 100%;
+  }
+}
+
+.dashboard-logo {
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #fff;
+    height: 2rem;
   }
 }
