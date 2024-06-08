@@ -36,6 +36,9 @@ const DashboardHeader = () => {
           </Link>
         </li>
       </ul>
+      <div className="absolute bottom-0 h-9 border w-full left-0">
+        user profile
+      </div>
     </aside>
   );
 };

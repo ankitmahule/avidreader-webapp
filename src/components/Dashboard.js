@@ -12,7 +12,7 @@ const Dashboard = () => {
           <AddQuote></AddQuote>
           <Quotes quotes={quotes}></Quotes>
         </section>
-        <aside className="aisde"></aside>
+        <aside className="right-aside"></aside>
       </main>
     </>
   );
