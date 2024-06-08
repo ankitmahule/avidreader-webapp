@@ -24,9 +24,9 @@ $layout-margin-small: 20%;
   }
   @media screen and (min-width: 1024px) {
     width: $layout-margin-small;
-    padding: 2rem 5rem;
+    padding: 2rem;
     img {
-      width: 25rem;
+      width: 10em;
     }
     height: 100%;
     border-right: 1px solid #ddd;

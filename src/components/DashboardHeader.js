@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import HomeLogo from "../assets/images/home.svg";
 import "../scss/layout.scss";
+import ProfilePic from "./ProfilePic";
 const DashboardHeader = () => {
   return (
     <aside className="aside">
@@ -36,7 +37,8 @@ const DashboardHeader = () => {
           </Link>
         </li>
       </ul>
-      <div className="absolute bottom-0 h-9 border w-full left-0">
+      <div className="profile-section">
+        <ProfilePic />
         user profile
       </div>
     </aside>

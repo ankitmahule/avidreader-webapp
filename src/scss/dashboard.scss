@@ -27,3 +27,14 @@
     }
   }
 }
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  padding: 1rem 2rem;
+  bottom: 0;
+  border-top: 1px solid #ddd;
+  width: 100%;
+}
