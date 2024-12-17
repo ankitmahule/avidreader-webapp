@@ -4,7 +4,6 @@ import { registerUser, userLogin } from "./authActions";
 const initialState = {
   loading: false,
   userInfo: {},
-  userToken: sessionStorage.getItem("authToken") || null,
   error: null,
   success: null,
 };
@@ -39,7 +38,6 @@ const authSlice = createSlice({
     builder.addCase(userLogin.fulfilled, (state, { payload }) => {
       state.loading = false;
       state.success = payload;
-      state.userToken = payload.authToken;
     });
     builder.addCase(userLogin.rejected, (state, { payload }) => {
       state.loading = false;
