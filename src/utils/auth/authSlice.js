@@ -3,7 +3,7 @@ import { registerUser, userLogin } from "./authActions";
 
 const initialState = {
   loading: false,
-  userInfo: {},
+  userInfo: null,
   error: null,
   success: null,
 };
@@ -37,7 +37,8 @@ const authSlice = createSlice({
     });
     builder.addCase(userLogin.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.success = payload;
+      // state.success = payload;
+      state.userInfo = payload;
     });
     builder.addCase(userLogin.rejected, (state, { payload }) => {
       state.loading = false;

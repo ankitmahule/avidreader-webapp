@@ -44,7 +44,7 @@ const Header = () => {
       </nav>
     </header>
   ) : (
-    <DashboardHeader />
+    <DashboardHeader userInfo={userInfo?.data} />
   );
 };
 

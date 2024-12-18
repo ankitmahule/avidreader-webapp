@@ -10,17 +10,20 @@ import { resetAuthState } from "../utils/auth/authSlice";
 
 const Login = ({ toggleLoginRegisterView }) => {
   const navigate = useNavigate();
-  const { loading, error, success } = useSelector((state) => state.auth);
+  const { loading, error, success, userInfo } = useSelector(
+    (state) => state.auth
+  );
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(success);
-    if (success && success.status === 200) {
+    console.log(userInfo);
+    if (userInfo && userInfo?.status === 200) {
+      // sessionStorage.setItem("userId", success?.data?._id);
       navigate("/dashboard");
     }
     return () => {
       dispatch(resetAuthState());
     };
-  }, [success, navigate, dispatch]);
+  }, [userInfo, navigate, dispatch]);
 
   function toggleView() {
     toggleLoginRegisterView(true);

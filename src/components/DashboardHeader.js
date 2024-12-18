@@ -2,8 +2,11 @@ import { Link } from "react-router-dom";
 import HomeLogo from "../assets/images/home.svg";
 import "../scss/layout.scss";
 import ProfilePic from "./ProfilePic";
-const DashboardHeader = () => {
-  return (
+
+const DashboardHeader = ({ userInfo }) => {
+  // const userId = sessionStorage.getItem("userId");
+  console.log(userInfo);
+  return !userInfo ? null : (
     <aside className="aside">
       <div className="my-4 dashboard-logo">
         <Link to="/dashboard">
@@ -39,7 +42,7 @@ const DashboardHeader = () => {
       </ul>
       <div className="profile-section">
         <ProfilePic />
-        user profile
+        <p>{userInfo.email}</p>
       </div>
     </aside>
   );
