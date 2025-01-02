@@ -43,6 +43,26 @@ export const userLogin = createAsyncThunk(
   }
 );
 
+export const viewProfile = createAsyncThunk(
+  "auth/profile",
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const config = {
+        headers: {
+          "content-type": "application/json",
+        },
+      };
+      const response = await axios.post(LOGIN_API, { email, password }, config);
+      console.log(response.data);
+      if (response && response.data) {
+        return response.data;
+      }
+    } catch (error) {
+      if (error) return handleError(error, rejectWithValue);
+    }
+  }
+);
+
 const handleError = (error, rejectWithValue) => {
   if (error.response && error.response.data.message) {
     return rejectWithValue(error.response.data);
