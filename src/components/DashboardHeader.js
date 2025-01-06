@@ -4,8 +4,6 @@ import "../scss/layout.scss";
 import ProfilePic from "./ProfilePic";
 
 const DashboardHeader = ({ userInfo }) => {
-  // const userId = sessionStorage.getItem("userId");
-  console.log(userInfo);
   return !userInfo ? null : (
     <aside className="aside">
       <div className="my-4 dashboard-logo">

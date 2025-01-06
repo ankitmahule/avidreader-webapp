@@ -15,13 +15,12 @@ const Login = ({ toggleLoginRegisterView }) => {
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(userInfo);
     if (userInfo && userInfo?.status === 200) {
       // sessionStorage.setItem("userId", success?.data?._id);
       navigate("/dashboard");
     }
     return () => {
-      dispatch(resetAuthState());
+      // dispatch(resetAuthState());
     };
   }, [userInfo, navigate, dispatch]);
 

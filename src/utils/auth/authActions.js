@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { LOGIN_API, REGISTER_API } from "../../shared/constants";
+import { LOGIN_API, REGISTER_API, PROFILE_API } from "../../shared/constants";
 export const registerUser = createAsyncThunk(
   "auth/register",
   async ({ email, password, contactNo }, { rejectWithValue }) => {
@@ -15,7 +15,6 @@ export const registerUser = createAsyncThunk(
         { email, password, contactNo },
         config
       );
-      console.log(response.data);
       if (response) return response.data;
     } catch (error) {
       return handleError(error, rejectWithValue);
@@ -33,7 +32,6 @@ export const userLogin = createAsyncThunk(
         },
       };
       const response = await axios.post(LOGIN_API, { email, password }, config);
-      console.log(response.data);
       if (response && response.data) {
         return response.data;
       }
@@ -45,15 +43,16 @@ export const userLogin = createAsyncThunk(
 
 export const viewProfile = createAsyncThunk(
   "auth/profile",
-  async ({ email, password }, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
+      // axios.defaults.withCredentials = true;
       const config = {
+        credentials: "include",
         headers: {
           "content-type": "application/json",
         },
       };
-      const response = await axios.post(LOGIN_API, { email, password }, config);
-      console.log(response.data);
+      const response = await fetch(PROFILE_API, config);
       if (response && response.data) {
         return response.data;
       }
