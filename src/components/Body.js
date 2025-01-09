@@ -2,12 +2,23 @@ import { useState } from "react";
 import "../scss/body.scss";
 import Login from "./Login";
 import Register from "./Register";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const Body = () => {
   const [toggleLoginRegister, setToggleLoginRegister] = useState(false);
-
+  const { userInfo } = useSelector((state) => state.auth);
   function toggleView(toggleFlag) {
     setToggleLoginRegister(toggleFlag);
   }
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate("/dashboard");
+    }
+  });
 
   return (
     <main>

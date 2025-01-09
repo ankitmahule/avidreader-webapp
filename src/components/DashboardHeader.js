@@ -2,9 +2,22 @@ import { Link } from "react-router-dom";
 import HomeLogo from "../assets/images/home.svg";
 import "../scss/layout.scss";
 import ProfilePic from "./ProfilePic";
+import { viewProfile } from "../utils/auth/authActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { resetAuthState } from "../utils/auth/authSlice";
 
-const DashboardHeader = ({ userInfo }) => {
-  return !userInfo ? null : (
+const DashboardHeader = ({ email }) => {
+  /*  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(viewProfile());
+    // console.log(success);
+    return () => {
+      dispatch(resetAuthState());
+    };
+  }, [dispatch]); */
+
+  return !email ? null : (
     <aside className="aside">
       <div className="my-4 dashboard-logo">
         <Link to="/dashboard">
@@ -40,7 +53,7 @@ const DashboardHeader = ({ userInfo }) => {
       </ul>
       <div className="profile-section">
         <ProfilePic />
-        <p>{userInfo.email}</p>
+        <p>{email}</p>
       </div>
     </aside>
   );

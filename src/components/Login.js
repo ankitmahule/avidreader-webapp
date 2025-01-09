@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
+import { viewProfile } from "../utils/auth/authActions";
 
 const Login = ({ toggleLoginRegisterView }) => {
   const navigate = useNavigate();
@@ -16,12 +17,11 @@ const Login = ({ toggleLoginRegisterView }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (userInfo && userInfo?.status === 200) {
-      // sessionStorage.setItem("userId", success?.data?._id);
       navigate("/dashboard");
     }
-    return () => {
-      // dispatch(resetAuthState());
-    };
+    /* return () => {
+      dispatch(resetAuthState());
+    }; */
   }, [userInfo, navigate, dispatch]);
 
   function toggleView() {

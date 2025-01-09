@@ -1,29 +1,27 @@
 import { Link } from "react-router-dom";
 import "../scss/header.scss";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import DashboardHeader from "./DashboardHeader";
 import HomeLogo from "../assets/images/home.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { resetAuthState } from "../utils/auth/authSlice";
+import { viewProfile } from "../utils/auth/authActions";
+
 const Header = () => {
   const location = useLocation();
 
-  /* const listenScrollEvent = () => {
-    if (window.scrollY < 73) {
-      return setHeaderBackground("header-transparent");
-    } else if (window.scrollY > 70) {
-      return setHeaderBackground("header-background");
-    }
-  }; */
-
-  /* useEffect(() => {
-    window.addEventListener("scroll", listenScrollEvent);
-
-    return () => {
-      window.removeEventListener("scroll", listenScrollEvent);
-    };
-  }, []); */
-
   const { userInfo } = useSelector((state) => state.auth);
+
+  /* const dispatch = useDispatch();
+  useEffect(() => {
+    if (!userInfo) {
+      dispatch(viewProfile());
+    }
+    return () => {
+      dispatch(resetAuthState());
+    };
+  }, [dispatch, userInfo]); */
 
   return location.pathname === "/" ? (
     <header className="header-transparent">
@@ -44,7 +42,7 @@ const Header = () => {
       </nav>
     </header>
   ) : (
-    <DashboardHeader userInfo={userInfo?.data} />
+    <DashboardHeader email={userInfo?.email} />
   );
 };
 

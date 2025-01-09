@@ -27,6 +27,7 @@ export const userLogin = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const config = {
+        withCredentials: true,
         headers: {
           "content-type": "application/json",
         },
@@ -45,14 +46,10 @@ export const viewProfile = createAsyncThunk(
   "auth/profile",
   async (_, { rejectWithValue }) => {
     try {
-      // axios.defaults.withCredentials = true;
       const config = {
-        credentials: "include",
-        headers: {
-          "content-type": "application/json",
-        },
+        withCredentials: true,
       };
-      const response = await fetch(PROFILE_API, config);
+      const response = await axios.get(PROFILE_API, config);
       if (response && response.data) {
         return response.data;
       }

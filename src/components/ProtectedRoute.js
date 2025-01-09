@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = ({ children }) => {
-  const { userToken } = useSelector((state) => state.auth);
-  if (!userToken) {
+const ProtectedRoute = () => {
+  const { userInfo } = useSelector((state) => state.auth);
+  if (!userInfo) {
     return <Navigate to="/" replace />;
   }
-  return children;
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

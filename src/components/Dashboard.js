@@ -12,8 +12,8 @@ const Dashboard = () => {
   const { loading, error, success } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(viewProfile());
-    console.log(success);
-  }, [dispatch, success]);
+    // console.log(success);
+  }, [dispatch]);
   return (
     <>
       <main className="flex">

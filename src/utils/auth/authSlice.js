@@ -49,7 +49,7 @@ const authSlice = createSlice({
     });
     builder.addCase(viewProfile.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.succes = payload;
+      state.userInfo = payload;
     });
     builder.addCase(viewProfile.rejected, (state, { payload }) => {
       state.loading = false;
