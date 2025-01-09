@@ -1,6 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { LOGIN_API, REGISTER_API, PROFILE_API } from "../../shared/constants";
+import {
+  LOGIN_API,
+  REGISTER_API,
+  PROFILE_API,
+  LOGOUT_API,
+} from "../../shared/constants";
 export const registerUser = createAsyncThunk(
   "auth/register",
   async ({ email, password, contactNo }, { rejectWithValue }) => {
@@ -50,6 +55,23 @@ export const viewProfile = createAsyncThunk(
         withCredentials: true,
       };
       const response = await axios.get(PROFILE_API, config);
+      if (response && response.data) {
+        return response.data;
+      }
+    } catch (error) {
+      if (error) return handleError(error, rejectWithValue);
+    }
+  }
+);
+
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const config = {
+        withCredentials: true,
+      };
+      const response = await axios.post(LOGOUT_API, {}, config);
       if (response && response.data) {
         return response.data;
       }

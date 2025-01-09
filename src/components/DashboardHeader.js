@@ -2,20 +2,20 @@ import { Link } from "react-router-dom";
 import HomeLogo from "../assets/images/home.svg";
 import "../scss/layout.scss";
 import ProfilePic from "./ProfilePic";
-import { viewProfile } from "../utils/auth/authActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { resetAuthState } from "../utils/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { logout } from "../utils/auth/authActions";
 
 const DashboardHeader = ({ email }) => {
-  /*  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(viewProfile());
-    // console.log(success);
-    return () => {
-      dispatch(resetAuthState());
-    };
-  }, [dispatch]); */
+  const [logoutSection, setLogoutSection] = useState(false);
+  const dispatch = useDispatch();
+  function logoutUser() {
+    dispatch(logout());
+  }
+
+  function toggleLogoutSection(logoutSection) {
+    setLogoutSection(logoutSection);
+  }
 
   return !email ? null : (
     <aside className="aside">
@@ -52,8 +52,18 @@ const DashboardHeader = ({ email }) => {
         </li>
       </ul>
       <div className="profile-section">
-        <ProfilePic />
-        <p>{email}</p>
+        <div
+          className="profile-data"
+          onClick={() => toggleLogoutSection(!logoutSection)}
+        >
+          <ProfilePic />
+          <p className="email-text">{email}</p>
+        </div>
+        {logoutSection && (
+          <div className="logout-section">
+            <p onClick={() => logoutUser()}>Logout</p>
+          </div>
+        )}
       </div>
     </aside>
   );

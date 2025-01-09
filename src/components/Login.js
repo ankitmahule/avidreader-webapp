@@ -3,13 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import "../scss/forms.scss";
 // import useUsers from "../utils/useUsers";
 import Alert from "./Alert";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
 import { viewProfile } from "../utils/auth/authActions";
 
 const Login = ({ toggleLoginRegisterView }) => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
   const { loading, error, success, userInfo } = useSelector(
     (state) => state.auth
@@ -26,6 +27,15 @@ const Login = ({ toggleLoginRegisterView }) => {
 
   function toggleView() {
     toggleLoginRegisterView(true);
+  }
+
+  function togglePasswordVisible(isPasswordVisible) {
+    /* if (passwordVisibleClassName === "fa-eye-slash") {
+      setPasswordVisible("fa-eye");
+    } else {
+      setPasswordVisible("fa-eye-slash");
+    } */
+    setPasswordVisible(isPasswordVisible);
   }
   return (
     <div className="form-container">
@@ -80,19 +90,26 @@ const Login = ({ toggleLoginRegisterView }) => {
               <div className="form-field">
                 <div className="relative">
                   <Field
-                    type="password"
+                    type={passwordVisible ? "text" : "password"}
                     name="password"
                     autoComplete="off"
                     placeholder=""
                   />
+
                   <label>Password</label>
                 </div>
-                <ErrorMessage
-                  className="field-error"
-                  name="password"
-                  component="div"
-                />
+                <i
+                  className={`fa ${
+                    passwordVisible ? "fa-eye" : "fa-eye-slash"
+                  } password-show`}
+                  onClick={() => togglePasswordVisible(!passwordVisible)}
+                ></i>
               </div>
+              <ErrorMessage
+                className="field-error"
+                name="password"
+                component="div"
+              />
               <div className="form-field flex justify-between items-center">
                 <Link className="forgot-password">Forgot Password?</Link>
                 <button className="btn" type="submit" disabled={loading}>

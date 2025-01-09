@@ -64,5 +64,13 @@
   }
 }
 .form-field {
-  margin: 2rem 0;
+  margin: 2rem 0 0 0;
+  position: relative;
+}
+.password-show {
+  position: absolute;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
 }
