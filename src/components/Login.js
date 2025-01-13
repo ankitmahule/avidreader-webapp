@@ -20,9 +20,9 @@ const Login = ({ toggleLoginRegisterView }) => {
     if (userInfo && userInfo?.status === 200) {
       navigate("/dashboard");
     }
-    /* return () => {
+    return () => {
       dispatch(resetAuthState());
-    }; */
+    };
   }, [userInfo, navigate, dispatch]);
 
   function toggleView() {

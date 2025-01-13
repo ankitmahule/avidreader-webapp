@@ -26,6 +26,12 @@ const DashboardHeader = ({ email }) => {
       </div>
       <ul className="dashboard-menu">
         <li>
+          <Link to="/dashboard">
+            <p className="fa fa-home mr-2"></p>
+            <p>Home</p>
+          </Link>
+        </li>
+        <li>
           <Link to="/explore">
             <p className="fa fa-search mr-2"></p>
             <p>Explore</p>

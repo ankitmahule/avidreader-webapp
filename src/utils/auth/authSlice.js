@@ -30,6 +30,7 @@ const authSlice = createSlice({
     builder.addCase(registerUser.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = payload;
+      state.success = null;
     });
     builder.addCase(userLogin.pending, (state) => {
       state.loading = true;
@@ -42,6 +43,7 @@ const authSlice = createSlice({
     builder.addCase(userLogin.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = payload;
+      state.success = null;
     });
     builder.addCase(viewProfile.pending, (state) => {
       state.loading = true;
