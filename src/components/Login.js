@@ -1,13 +1,11 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import "../scss/forms.scss";
-// import useUsers from "../utils/useUsers";
 import Alert from "./Alert";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
-import { viewProfile } from "../utils/auth/authActions";
 
 const Login = ({ toggleLoginRegisterView }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -30,11 +28,6 @@ const Login = ({ toggleLoginRegisterView }) => {
   }
 
   function togglePasswordVisible(isPasswordVisible) {
-    /* if (passwordVisibleClassName === "fa-eye-slash") {
-      setPasswordVisible("fa-eye");
-    } else {
-      setPasswordVisible("fa-eye-slash");
-    } */
     setPasswordVisible(isPasswordVisible);
   }
   return (
