@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { saveQuote, getQuotes } from "./quoteActions";
+import { saveQuote, getQuotes, uploadQuote } from "./quoteActions";
 
 const initialState = {
   loading: false,
@@ -26,8 +26,23 @@ const quoteSlice = createSlice({
     builder.addCase(saveQuote.fulfilled, (state, { payload }) => {
       state.loading = false;
       state.success = payload;
+      state.error = null;
     });
     builder.addCase(saveQuote.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+      state.success = null;
+    });
+    builder.addCase(uploadQuote.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(uploadQuote.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.success = payload;
+      state.error = null;
+    });
+    builder.addCase(uploadQuote.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = payload;
       state.success = null;

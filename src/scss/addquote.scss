@@ -12,4 +12,10 @@
     overflow-wrap: break-word;
     resize: none;
   }
+  .quote-file-input {
+    display: none;
+  }
+  label {
+    cursor: pointer;
+  }
 }

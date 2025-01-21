@@ -3,8 +3,9 @@ import HomeLogo from "../assets/images/home.svg";
 import "../scss/layout.scss";
 import ProfilePic from "./ProfilePic";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { logout } from "../utils/auth/authActions";
+import { useEffect, useState } from "react";
+import { logout, viewProfile } from "../utils/auth/authActions";
+import { resetAuthState } from "../utils/auth/authSlice";
 
 const DashboardHeader = ({ email }) => {
   const [logoutSection, setLogoutSection] = useState(false);
@@ -12,6 +13,12 @@ const DashboardHeader = ({ email }) => {
   function logoutUser() {
     dispatch(logout());
   }
+  useEffect(() => {
+    dispatch(viewProfile());
+    return () => {
+      dispatch(resetAuthState());
+    };
+  }, [dispatch]);
 
   function toggleLogoutSection(logoutSection) {
     setLogoutSection(logoutSection);

@@ -4,18 +4,18 @@ import ProfilePic from "./ProfilePic";
 import { useEffect } from "react";
 import { getQuotes } from "../utils/quotes/quoteActions";
 import { resetQuotesState } from "../utils/quotes/quoteSlice";
-import { resetAuthState } from "../utils/auth/authSlice";
-const Quotes = () => {
-  const { userInfo } = useSelector((state) => state.auth);
 
+const Quotes = ({ id }) => {
   const { quotes } = useSelector((state) => state.quotes);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getQuotes(userInfo.id));
+    if (!quotes) {
+      dispatch(getQuotes(id));
+    }
     return () => {
       dispatch(resetQuotesState());
     };
-  }, [dispatch, userInfo]);
+  }, [dispatch, quotes, id]);
   return !quotes ? null : (
     <>
       {quotes.quotes.map((eachQuote, index) => {
@@ -27,7 +27,7 @@ const Quotes = () => {
             </div>
             <div className="card-content"></div>
             <div className="card-footer">
-              <ul className="flex space-between">
+              <ul className="flex justify-between cursor-pointer">
                 <li>
                   <i className="fa-regular fa-thumbs-up"></i>
                 </li>

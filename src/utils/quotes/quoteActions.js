@@ -1,11 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { SAVE_QUOTE_API, GET_QUOTE_API } from "../../shared/constants";
+import {
+  SAVE_QUOTE_API,
+  GET_QUOTE_API,
+  UPLOAD_QUOTE_API,
+} from "../../shared/constants";
 export const saveQuote = createAsyncThunk(
   "quotes/saveQuote",
   async ({ content, userId }, { rejectWithValue }) => {
     try {
-      console.log(content + userId);
       const config = {
         headers: {
           "content-type": "application/json",
@@ -17,6 +20,24 @@ export const saveQuote = createAsyncThunk(
         { userId, content },
         config
       );
+      if (response) return response.data;
+    } catch (error) {
+      return handleError(error, rejectWithValue);
+    }
+  }
+);
+
+export const uploadQuote = createAsyncThunk(
+  "quotes/uploadQuote",
+  async (formdata, { rejectWithValue }) => {
+    try {
+      console.log(formdata);
+      const config = {
+        "Content-Type": "multipart/form-data",
+        withCredentials: true,
+      };
+
+      const response = await axios.post(UPLOAD_QUOTE_API, formdata, config);
       if (response) return response.data;
     } catch (error) {
       return handleError(error, rejectWithValue);

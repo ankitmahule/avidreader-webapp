@@ -5,4 +5,5 @@ export const LOGIN_API = `${API_URL}/login`;
 export const PROFILE_API = `${API_URL}/profile/view`;
 export const LOGOUT_API = `${API_URL}/logout`;
 export const SAVE_QUOTE_API = `${API_URL}/save-quote`;
+export const UPLOAD_QUOTE_API = `${API_URL}/upload-quote`;
 export const GET_QUOTE_API = `${API_URL}/quotes`;

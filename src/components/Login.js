@@ -71,8 +71,9 @@ const Login = ({ toggleLoginRegisterView }) => {
                     name="email"
                     autoComplete="off"
                     placeholder=""
+                    id="email"
                   />
-                  <label>Email Address</label>
+                  <label htmlFor="email">Email Address</label>
                 </div>
                 <ErrorMessage
                   className="field-error"
@@ -87,9 +88,10 @@ const Login = ({ toggleLoginRegisterView }) => {
                     name="password"
                     autoComplete="off"
                     placeholder=""
+                    id="password"
                   />
 
-                  <label>Password</label>
+                  <label htmlFor="password">Password</label>
                 </div>
                 <i
                   className={`fa ${
