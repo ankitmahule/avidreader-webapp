@@ -40,7 +40,6 @@ const AddQuote = () => {
     setShowModal(false);
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("fileName", file.name);
     dispatch(uploadQuote(formData));
   };
 

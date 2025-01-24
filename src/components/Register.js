@@ -25,9 +25,18 @@ const Register = ({ toggleLoginRegisterView }) => {
       <div className="login-form">
         <Formik
           validateOnMount={true}
-          initialValues={{ email: "", password: "", contactNo: "" }}
+          initialValues={{
+            email: "",
+            password: "",
+            contactNo: "",
+            firstName: "",
+            lastName: "",
+          }}
           validate={(values) => {
             const errors = {};
+            if (!values.firstName) errors.firstName = "This field is required";
+            if (!values.lastName) errors.lastName = "This field is required";
+
             if (!values.email) errors.email = "This field is required";
             else if (
               !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
@@ -56,6 +65,42 @@ const Register = ({ toggleLoginRegisterView }) => {
                 ((error && error !== "Network Error") || success) && (
                   <Alert {...(error ? error : success)}></Alert>
                 )}
+              <div className="form-field flex justify-between">
+                <div class="name-container">
+                  <div className="relative">
+                    <Field
+                      type="text"
+                      placeholder=""
+                      name="firstName"
+                      autoComplete="off"
+                    />
+                    <label>First Name</label>
+                  </div>
+                  <ErrorMessage
+                    className="field-error"
+                    name="firstName"
+                    component="div"
+                  />
+                </div>
+
+                <div className="name-container">
+                  <div className="relative">
+                    <Field
+                      type="text"
+                      placeholder=""
+                      name="lastName"
+                      autoComplete="off"
+                    />
+                    <label>Last Name</label>
+                  </div>
+                  <ErrorMessage
+                    className="field-error"
+                    name="lastName"
+                    component="div"
+                  />
+                </div>
+              </div>
+
               <div className="form-field">
                 <div className="relative">
                   <Field
@@ -94,7 +139,6 @@ const Register = ({ toggleLoginRegisterView }) => {
                     type="text"
                     name="contactNo"
                     autoComplete="off"
-                    patter="[0-9]+"
                     placeholder=""
                   />
                   <label>Contact No.</label>

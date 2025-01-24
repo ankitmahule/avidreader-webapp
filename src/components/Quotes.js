@@ -9,13 +9,11 @@ const Quotes = ({ id }) => {
   const { quotes } = useSelector((state) => state.quotes);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!quotes) {
-      dispatch(getQuotes(id));
-    }
+    dispatch(getQuotes());
     return () => {
       dispatch(resetQuotesState());
     };
-  }, [dispatch, quotes, id]);
+  }, [dispatch]);
   return !quotes ? null : (
     <>
       {quotes.quotes.map((eachQuote, index) => {
@@ -23,9 +21,10 @@ const Quotes = ({ id }) => {
           <section key={index} className="cards">
             <div className="flex items-center">
               <ProfilePic />
-              {eachQuote.content}
+              {eachQuote.firstName} {eachQuote.lastName}
+              
             </div>
-            <div className="card-content"></div>
+            <div className="card-content"><img src={eachQuote.content} alt="content"/></div>
             <div className="card-footer">
               <ul className="flex justify-between cursor-pointer">
                 <li>

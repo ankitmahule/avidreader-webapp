@@ -13,7 +13,7 @@ const Dashboard = () => {
           <AddQuote {...userInfo}></AddQuote>
           <Quotes></Quotes>
         </section>
-        <aside className="right-aside"></aside>
+        <aside className="right-aside">follow requests</aside>
       </main>
     </>
   );

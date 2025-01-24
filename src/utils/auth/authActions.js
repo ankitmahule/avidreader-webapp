@@ -8,18 +8,14 @@ import {
 } from "../../shared/constants";
 export const registerUser = createAsyncThunk(
   "auth/register",
-  async ({ email, password, contactNo }, { rejectWithValue }) => {
+  async (values, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
           "content-type": "application/json",
         },
       };
-      const response = await axios.post(
-        REGISTER_API,
-        { email, password, contactNo },
-        config
-      );
+      const response = await axios.post(REGISTER_API, values, config);
       if (response) return response.data;
     } catch (error) {
       return handleError(error, rejectWithValue);

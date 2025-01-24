@@ -1,6 +1,8 @@
 .dashboard-menu {
   display: flex;
   justify-content: space-between;
+  background: #fff;
+  z-index: 9999;
   li {
     padding: 0.6rem;
     font-size: 0.8rem;
@@ -25,6 +27,12 @@
         }
       }
     }
+  }
+}
+
+.right-aside {
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 }
 
@@ -68,5 +76,8 @@
       transform: rotate(45deg);
       background: #fff;
     }
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
   }
 }

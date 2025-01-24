@@ -74,3 +74,13 @@
   transform: translateY(-50%);
   color: #fff;
 }
+
+.name-container {
+  flex: 1 1 auto;
+  &:first-child {
+    margin: 0 2% 0 0;
+  }
+  &:nth-child(2) {
+    margin: 0 0 0 2%;
+  }
+}
