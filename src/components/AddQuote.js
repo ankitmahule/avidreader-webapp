@@ -38,9 +38,6 @@ const AddQuote = () => {
 
   const handleClose = () => {
     setShowModal(false);
-    const formData = new FormData();
-    formData.append("file", file);
-    dispatch(uploadQuote(formData));
   };
 
   return (
@@ -82,6 +79,8 @@ const AddQuote = () => {
                   name="content"
                   component="div"
                 />
+
+                {image && <img src={image} alt="quote image" />}
                 <div className="absolute w-[100%]">
                   <ul className="flex justify-between items-center">
                     <li>

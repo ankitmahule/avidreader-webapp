@@ -28,7 +28,7 @@ const Modal = ({ open, close, content }) => {
             autoFocus
             className="btn btn-small mt-2"
           >
-            Post
+            Ok
           </button>
         </DialogActions>
       </Dialog>
