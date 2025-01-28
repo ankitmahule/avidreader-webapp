@@ -7,19 +7,15 @@ import {
 } from "../../shared/constants";
 export const saveQuote = createAsyncThunk(
   "quotes/saveQuote",
-  async ({ content, userId }, { rejectWithValue }) => {
+  async (request, { rejectWithValue }) => {
     try {
       const config = {
         headers: {
-          "content-type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
         withCredentials: true,
       };
-      const response = await axios.post(
-        SAVE_QUOTE_API,
-        { userId, content },
-        config
-      );
+      const response = await axios.post(SAVE_QUOTE_API, request, config);
       if (response) return response.data;
     } catch (error) {
       return handleError(error, rejectWithValue);
@@ -31,7 +27,6 @@ export const uploadQuote = createAsyncThunk(
   "quotes/uploadQuote",
   async (formdata, { rejectWithValue }) => {
     try {
-      console.log(formdata);
       const config = {
         "Content-Type": "multipart/form-data",
         withCredentials: true,

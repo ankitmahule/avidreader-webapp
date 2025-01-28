@@ -16,15 +16,19 @@ const Quotes = ({ id }) => {
   }, [dispatch]);
   return !quotes ? null : (
     <>
-      {quotes.quotes.map((eachQuote, index) => {
+      {quotes.quotes.map((eachQuote) => {
         return (
-          <section key={index} className="cards">
+          <section key={eachQuote._id} className="cards">
             <div className="flex items-center">
               <ProfilePic />
-              {eachQuote.firstName} {eachQuote.lastName}
-              
+              {eachQuote?.firstName} {eachQuote?.lastName}
             </div>
-            <div className="card-content"><img src={eachQuote.content} alt="content"/></div>
+            <div className="card-content">
+              {eachQuote?.content && <p>{eachQuote?.content}</p>}
+              {eachQuote?.contentImage && (
+                <img src={eachQuote?.contentImage} alt="content" />
+              )}
+            </div>
             <div className="card-footer">
               <ul className="flex justify-between cursor-pointer">
                 <li>

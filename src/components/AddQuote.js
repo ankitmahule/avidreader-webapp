@@ -1,26 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import "../scss/addquote.scss";
 import ProfilePic from "./ProfilePic";
-import {
-  getQuotes,
-  saveQuote,
-  uploadQuote,
-} from "../utils/quotes/quoteActions";
+import { getQuotes, saveQuote } from "../utils/quotes/quoteActions";
 import Alert from "./Alert";
 import { useEffect, useState } from "react";
 import { resetQuotesState } from "../utils/quotes/quoteSlice";
 import Modal from "./Modal";
+import LinearProgress from "@mui/material/LinearProgress";
 const AddQuote = () => {
   const [showModal, setShowModal] = useState(false);
   const [image, setImage] = useState(null);
-  const [file, setFile] = useState([]);
-  const { userInfo } = useSelector((state) => state.auth);
-  const { error, success } = useSelector((state) => state.quotes);
+  const [file, setFile] = useState(null);
+  const { loading, error, success } = useSelector((state) => state.quotes);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (success && success?.status === 200) {
+      setImage(null);
+      setFile(null);
       dispatch(getQuotes());
     }
     return () => {
@@ -29,7 +27,7 @@ const AddQuote = () => {
   }, [dispatch, success]);
 
   function onFileSelect(event) {
-    if (event.target.files && event.target.files[0]) {
+    if (event?.target?.files[0]) {
       setShowModal(true);
       setImage(URL.createObjectURL(event.target.files[0]));
       setFile(event.target.files[0]);
@@ -42,28 +40,32 @@ const AddQuote = () => {
 
   return (
     <>
+      {loading && <LinearProgress />}
       <Formik
         validateOnMount={true}
-        initialValues={{ content: "" }}
+        initialValues={{ content: "", quotefile: "" }}
         validate={(values) => {
-          const errors = {};
+          let errors = {};
+          if (file) return {};
           if (!values.content) {
             errors.content = "This field is required";
           }
           return errors;
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          const request = { content: values.content, userId: userInfo.id };
-          dispatch(saveQuote(request));
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("content", values.content);
+          dispatch(saveQuote(formData));
           resetForm();
           setSubmitting(false);
         }}
       >
-        {({ isValid, isSubmitting }) => (
+        {({ isSubmitting, isValid }) => (
           <Form>
             {!isSubmitting &&
               ((error && error !== "Network Error") || success) && (
-                <Alert {...(error ? error : success)}></Alert>
+                <Alert {...(error || success)}></Alert>
               )}
             <section className="add-quote flex">
               <ProfilePic />
@@ -74,29 +76,28 @@ const AddQuote = () => {
                   placeholder="Add your favorite quote, excerpt etc."
                   className="quotes-text"
                 />
-                <ErrorMessage
-                  className="field-error"
-                  name="content"
-                  component="div"
-                />
 
-                {image && <img src={image} alt="quote image" />}
+                {image && <img src={image} alt="quote" />}
                 <div className="absolute w-[100%]">
                   <ul className="flex justify-between items-center">
                     <li>
-                      <label htmlFor="quotefile">
+                      <label htmlFor="quotefileInput">
                         <em className="fa fa-image text-xl"></em>
                         <Field
                           type="file"
                           name="quotefile"
-                          id="quotefile"
+                          id="quotefileInput"
                           onChange={onFileSelect}
                           className="quote-file-input"
                         ></Field>
                       </label>
                     </li>
                     <li>
-                      <button className="btn btn-small mt-2" type="submit">
+                      <button
+                        type="submit"
+                        className="btn btn-small mt-2"
+                        disabled={!isValid && !file}
+                      >
                         Post
                       </button>
                     </li>
