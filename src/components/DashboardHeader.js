@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { logout, viewProfile } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
 
-const DashboardHeader = ({ email }) => {
+const DashboardHeader = (userInfo) => {
   const [logoutSection, setLogoutSection] = useState(false);
   const dispatch = useDispatch();
   function logoutUser() {
@@ -24,7 +24,7 @@ const DashboardHeader = ({ email }) => {
     setLogoutSection(logoutSection);
   }
 
-  return !email ? null : (
+  return !userInfo ? null : (
     <aside className="aside">
       <div className="my-4 dashboard-logo">
         <Link to="/dashboard">
@@ -70,7 +70,10 @@ const DashboardHeader = ({ email }) => {
           onClick={() => toggleLogoutSection(!logoutSection)}
         >
           <ProfilePic />
-          <p className="email-text">{email}</p>
+
+          <p className="email-text">
+            {userInfo?.firstName} {userInfo?.lastName}
+          </p>
         </div>
         {logoutSection && (
           <div className="logout-section">

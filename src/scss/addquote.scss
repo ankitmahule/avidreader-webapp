@@ -18,4 +18,13 @@
   label {
     cursor: pointer;
   }
+  .img-container {
+    position: relative;
+    padding: 2rem;
+    em {
+      position: absolute;
+      right: 0;
+      top: 10%;
+    }
+  }
 }

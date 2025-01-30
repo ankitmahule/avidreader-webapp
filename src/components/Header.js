@@ -28,7 +28,7 @@ const Header = () => {
       </nav>
     </header>
   ) : (
-    <DashboardHeader email={userInfo?.email} />
+    <DashboardHeader {...userInfo} />
   );
 };
 

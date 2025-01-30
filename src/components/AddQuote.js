@@ -28,15 +28,19 @@ const AddQuote = () => {
 
   function onFileSelect(event) {
     if (event?.target?.files[0]) {
-      setShowModal(true);
+      // setShowModal(true);
       setImage(URL.createObjectURL(event.target.files[0]));
       setFile(event.target.files[0]);
     }
   }
 
-  const handleClose = () => {
+  function closeImagePreview() {
+    setImage(null);
+  }
+
+  function handleClose() {
     setShowModal(false);
-  };
+  }
 
   return (
     <>
@@ -77,7 +81,15 @@ const AddQuote = () => {
                   className="quotes-text"
                 />
 
-                {image && <img src={image} alt="quote" />}
+                {image && (
+                  <div className="img-container">
+                    <img src={image} alt="quote" />
+                    <em
+                      className="fa fa-times-circle cursor-pointer"
+                      onClick={closeImagePreview}
+                    ></em>
+                  </div>
+                )}
                 <div className="absolute w-[100%]">
                   <ul className="flex justify-between items-center">
                     <li>
