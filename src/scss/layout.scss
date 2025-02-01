@@ -39,6 +39,13 @@ $layout-margin-small: 20%;
   }
 }
 
+.aside-right {
+  @extend .aside;
+  right: 0;
+  width: 30%;
+  border-left: 1px solid #ddd;
+}
+
 .dashboard-logo {
   @media screen and (max-width: 768px) {
     position: fixed;

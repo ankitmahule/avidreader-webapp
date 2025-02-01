@@ -11,6 +11,7 @@ import Setting from "./components/Setting";
 import Profile from "./components/Profile";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
+import RightSidebar from "./components/Right-Sidebar";
 
 const persistor = persistStore(store);
 
@@ -18,8 +19,11 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <Header></Header>
-        <Outlet></Outlet>
+        <section className="flex">
+          <Header />
+          <Outlet />
+          <RightSidebar />
+        </section>
       </PersistGate>
     </Provider>
   );
