@@ -1,4 +1,4 @@
-import { Outlet, createBrowserRouter } from "react-router-dom";
+import { Outlet, createBrowserRouter, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Dashboard from "./components/Dashboard";
@@ -16,13 +16,15 @@ import RightSidebar from "./components/Right-Sidebar";
 const persistor = persistStore(store);
 
 function App() {
+  const location = useLocation();
+  const isLocationHome = location.pathname === "/";
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <section className="flex">
+        <section className={!isLocationHome ? "flex" : ""}>
           <Header />
           <Outlet />
-          <RightSidebar />
+          {!isLocationHome && <RightSidebar />}
         </section>
       </PersistGate>
     </Provider>
