@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import "../scss/quotes.scss";
 import ProfilePic from "./ProfilePic";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getQuotes } from "../utils/quotes/quoteActions";
 import { resetQuotesState } from "../utils/quotes/quoteSlice";
+import { bookmarkQuote } from "../utils/auth/authActions";
 
-const Quotes = ({ id }) => {
+const Quotes = () => {
   const { quotes } = useSelector((state) => state.quotes);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getQuotes());
@@ -14,6 +16,13 @@ const Quotes = ({ id }) => {
       dispatch(resetQuotesState());
     };
   }, [dispatch]);
+
+  function bookmark(quoteId) {
+    if (quoteId) {
+      setIsBookmarked(!isBookmarked);
+      dispatch(bookmarkQuote({ quoteId, isBookmarked }));
+    }
+  }
   return !quotes ? null : (
     <>
       {quotes.quotes.map((eachQuote) => {
@@ -37,7 +46,7 @@ const Quotes = ({ id }) => {
                 <li>
                   <i className="fa-regular fa-comment"></i>
                 </li>
-                <li>
+                <li onClick={() => bookmark(eachQuote?._id)}>
                   <i className="fa-regular fa-bookmark"></i>
                 </li>
               </ul>
