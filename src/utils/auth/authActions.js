@@ -80,12 +80,12 @@ export const logout = createAsyncThunk(
 
 export const bookmarkQuote = createAsyncThunk(
   "auth/bookmark-quote",
-  async (request, { rejectWithValue }) => {
+  async (quoteId, { rejectWithValue }) => {
     try {
       const config = {
         withCredentials: true,
       };
-      const response = await axios.put(UPDATE_BOOKMARK_API, request, config);
+      const response = await axios.put(UPDATE_BOOKMARK_API, quoteId, config);
       if (response && response.data) {
         return response.data;
       }

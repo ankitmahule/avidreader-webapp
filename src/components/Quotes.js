@@ -8,6 +8,7 @@ import { bookmarkQuote } from "../utils/auth/authActions";
 
 const Quotes = () => {
   const { quotes } = useSelector((state) => state.quotes);
+  const { userInfo } = useSelector((state) => state.auth);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -17,10 +18,14 @@ const Quotes = () => {
     };
   }, [dispatch]);
 
+  function isQuoteBookmarked(quoteId) {
+    return userInfo.bookmarks.includes(quoteId);
+  }
+
   function bookmark(quoteId) {
     if (quoteId) {
       setIsBookmarked(!isBookmarked);
-      dispatch(bookmarkQuote({ quoteId, isBookmarked }));
+      dispatch(bookmarkQuote({ quoteId }));
     }
   }
   return !quotes ? null : (
@@ -47,7 +52,13 @@ const Quotes = () => {
                   <i className="fa-regular fa-comment"></i>
                 </li>
                 <li onClick={() => bookmark(eachQuote?._id)}>
-                  <i className="fa-regular fa-bookmark"></i>
+                  <i
+                    className={`fa-bookmark ${
+                      isQuoteBookmarked(eachQuote?._id)
+                        ? "fa-solid"
+                        : "fa-regular"
+                    }`}
+                  ></i>
                 </li>
               </ul>
             </div>

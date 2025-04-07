@@ -9,6 +9,10 @@
     position: absolute;
     width: 90%;
     bottom: 1rem;
+
+    .active {
+      background-color: #000;
+    }
   }
   .card-content {
     padding: 2rem 2rem 4rem 2rem;
