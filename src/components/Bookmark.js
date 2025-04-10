@@ -1,6 +1,8 @@
 import "../scss/layout.scss";
+import { useSelector } from "react-redux";
 const Bookmark = () => {
-  return <div className="main-layout">bookmark</div>;
+  const { quotes } = useSelector((state) => state.quotes);
+  return <div className="main-layout"></div>;
 };
 
 export default Bookmark;
