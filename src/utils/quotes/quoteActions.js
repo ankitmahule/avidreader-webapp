@@ -4,6 +4,7 @@ import {
   SAVE_QUOTE_API,
   GET_QUOTE_API,
   UPLOAD_QUOTE_API,
+  UPDATE_BOOKMARK_API,
 } from "../../shared/constants";
 export const saveQuote = createAsyncThunk(
   "quotes/saveQuote",
@@ -50,6 +51,23 @@ export const getQuotes = createAsyncThunk(
       const response = await axios.get(GET_QUOTE_API, config);
       if (response && response.data) {
         return response.data;
+      }
+    } catch (error) {
+      if (error) return handleError(error, rejectWithValue);
+    }
+  }
+);
+
+export const bookmarkQuote = createAsyncThunk(
+  "auth/bookmark-quote",
+  async (quoteId, { rejectWithValue }) => {
+    try {
+      const config = {
+        withCredentials: true,
+      };
+      const response = await axios.put(UPDATE_BOOKMARK_API, quoteId, config);
+      if (response?.data) {
+        return response?.data;
       }
     } catch (error) {
       if (error) return handleError(error, rejectWithValue);

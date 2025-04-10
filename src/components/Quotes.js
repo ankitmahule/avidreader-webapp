@@ -2,9 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import "../scss/quotes.scss";
 import ProfilePic from "./ProfilePic";
 import { useEffect, useState } from "react";
-import { getQuotes } from "../utils/quotes/quoteActions";
+import { getQuotes, bookmarkQuote } from "../utils/quotes/quoteActions";
 import { resetQuotesState } from "../utils/quotes/quoteSlice";
-import { bookmarkQuote } from "../utils/auth/authActions";
 
 const Quotes = () => {
   const { quotes } = useSelector((state) => state.quotes);
@@ -19,7 +18,11 @@ const Quotes = () => {
   }, [dispatch]);
 
   function isQuoteBookmarked(quoteId) {
-    return userInfo.bookmarks.includes(quoteId);
+    const quoteDetails = quotes.filter((eachQuote) => {
+      return eachQuote?._id === quoteId;
+    });
+
+    return quoteDetails[0]?.bookmarkedBy?.includes(userInfo?.id);
   }
 
   function bookmark(quoteId) {
@@ -30,7 +33,7 @@ const Quotes = () => {
   }
   return !quotes ? null : (
     <>
-      {quotes.quotes.map((eachQuote) => {
+      {quotes.map((eachQuote) => {
         return (
           <section key={eachQuote._id} className="cards">
             <div className="flex items-center">

@@ -1,11 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  registerUser,
-  userLogin,
-  viewProfile,
-  logout,
-  bookmarkQuote,
-} from "./authActions";
+import { registerUser, userLogin, viewProfile, logout } from "./authActions";
 
 const initialState = {
   loading: false,
@@ -76,18 +70,6 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = payload;
       state.userInfo = null;
-    });
-    builder.addCase(bookmarkQuote.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(bookmarkQuote.fulfilled, (state, { payload }) => {
-      state.loading = false;
-      state.success = payload;
-      state.error = null;
-    });
-    builder.addCase(bookmarkQuote.rejected, (state, { payload }) => {
-      state.loading = false;
-      state.error = payload;
     });
   },
 });

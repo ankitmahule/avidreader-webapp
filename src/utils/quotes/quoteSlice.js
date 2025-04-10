@@ -1,9 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { saveQuote, getQuotes, uploadQuote } from "./quoteActions";
+import {
+  saveQuote,
+  getQuotes,
+  uploadQuote,
+  bookmarkQuote,
+} from "./quoteActions";
 
 const initialState = {
   loading: false,
-  quotes: null,
+  quotes: [],
   error: null,
   success: null,
 };
@@ -25,7 +30,7 @@ const quoteSlice = createSlice({
     });
     builder.addCase(saveQuote.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.success = payload;
+      state.success = payload.quotes;
       state.error = null;
     });
     builder.addCase(saveQuote.rejected, (state, { payload }) => {
@@ -39,7 +44,7 @@ const quoteSlice = createSlice({
     });
     builder.addCase(uploadQuote.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.success = payload;
+      state.success = payload.quotes;
       state.error = null;
     });
     builder.addCase(uploadQuote.rejected, (state, { payload }) => {
@@ -53,9 +58,28 @@ const quoteSlice = createSlice({
     });
     builder.addCase(getQuotes.fulfilled, (state, { payload }) => {
       state.loading = false;
-      state.quotes = payload;
+      state.quotes = payload.quotes;
     });
     builder.addCase(getQuotes.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+      state.success = null;
+    });
+
+    builder.addCase(bookmarkQuote.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(bookmarkQuote.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      const updatedBookmark = payload;
+      state.quotes = state?.quotes?.map((eachQuote) => {
+        return eachQuote._id === updatedBookmark.response._id
+          ? updatedBookmark.response
+          : eachQuote;
+      });
+      state.error = null;
+    });
+    builder.addCase(bookmarkQuote.rejected, (state, { payload }) => {
       state.loading = false;
       state.error = payload;
       state.success = null;
