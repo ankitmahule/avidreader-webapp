@@ -5,11 +5,10 @@ import Quotes from "./Quotes";
 import { useSelector } from "react-redux";
 const Dashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
-
   return !userInfo ? null : (
     <section className="main-layout">
-      <AddQuote {...userInfo}></AddQuote>
-      <Quotes></Quotes>
+      <AddQuote></AddQuote>
+      <Quotes isBookmarkPage={false}></Quotes>
     </section>
   );
 };

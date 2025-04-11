@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { getQuotes, bookmarkQuote } from "../utils/quotes/quoteActions";
 import { resetQuotesState } from "../utils/quotes/quoteSlice";
 
-const Quotes = () => {
+const Quotes = (props) => {
+  const isBookmarkPage = props.isBookmarkPage;
   const { quotes } = useSelector((state) => state.quotes);
   const { userInfo } = useSelector((state) => state.auth);
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -46,25 +47,28 @@ const Quotes = () => {
                 <img src={eachQuote?.contentImage} alt="content" />
               )}
             </div>
-            <div className="card-footer">
-              <ul className="flex justify-between cursor-pointer">
-                <li>
-                  <i className="fa-regular fa-thumbs-up"></i>
-                </li>
-                <li>
-                  <i className="fa-regular fa-comment"></i>
-                </li>
-                <li onClick={() => bookmark(eachQuote?._id)}>
-                  <i
-                    className={`fa-bookmark ${
-                      isQuoteBookmarked(eachQuote?._id)
-                        ? "fa-solid"
-                        : "fa-regular"
-                    }`}
-                  ></i>
-                </li>
-              </ul>
-            </div>
+            {!isBookmarkPage && (
+              <div className="card-footer">
+                <ul className="flex justify-between cursor-pointer">
+                  <li>
+                    <i className="fa-regular fa-thumbs-up"></i>
+                  </li>
+                  <li>
+                    <i className="fa-regular fa-comment"></i>
+                  </li>
+
+                  <li onClick={() => bookmark(eachQuote?._id)}>
+                    <i
+                      className={`fa-bookmark ${
+                        isQuoteBookmarked(eachQuote?._id)
+                          ? "fa-solid"
+                          : "fa-regular"
+                      }`}
+                    ></i>
+                  </li>
+                </ul>
+              </div>
+            )}
           </section>
         );
       })}
