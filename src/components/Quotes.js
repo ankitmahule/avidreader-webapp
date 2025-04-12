@@ -5,14 +5,22 @@ import { useEffect, useState } from "react";
 import { getQuotes, bookmarkQuote } from "../utils/quotes/quoteActions";
 import { resetQuotesState } from "../utils/quotes/quoteSlice";
 
-const Quotes = (props) => {
-  const isBookmarkPage = props.isBookmarkPage;
-  const { quotes } = useSelector((state) => state.quotes);
+const Quotes = ({ quotesList, isBookmarkPage }) => {
+  // const isBookmarkPage = isBookmarkPage;
+  // const { quotes } = useSelector((state) => state.quotes);
+  console.log(quotesList);
+  const quotes = quotesList;
   const { userInfo } = useSelector((state) => state.auth);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getQuotes());
+
+    /* if (isBookmarkPage && quotes?.length > 0) {
+      quotes.filter((eachQuote) => {
+        return eachQuote._id === userInfo?.id;
+      });
+    } */
     return () => {
       dispatch(resetQuotesState());
     };
@@ -32,14 +40,30 @@ const Quotes = (props) => {
       dispatch(bookmarkQuote({ quoteId }));
     }
   }
+
+  function removeBookmarkFromPage(quoteId) {
+    setIsBookmarked(false);
+    dispatch(bookmarkQuote({ quoteId }));
+  }
+
   return !quotes ? null : (
     <>
       {quotes.map((eachQuote) => {
         return (
           <section key={eachQuote._id} className="cards">
-            <div className="flex items-center">
-              <ProfilePic />
-              {eachQuote?.firstName} {eachQuote?.lastName}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <ProfilePic />
+                {eachQuote?.firstName} {eachQuote?.lastName}
+              </div>
+              <div>
+                {isBookmarkPage && (
+                  <i
+                    className="fa-solid fa-trash cursor-pointer"
+                    onClick={() => removeBookmarkFromPage(eachQuote._id)}
+                  ></i>
+                )}
+              </div>
             </div>
             <div className="card-content">
               {eachQuote?.content && <p>{eachQuote?.content}</p>}
@@ -47,6 +71,7 @@ const Quotes = (props) => {
                 <img src={eachQuote?.contentImage} alt="content" />
               )}
             </div>
+
             {!isBookmarkPage && (
               <div className="card-footer">
                 <ul className="flex justify-between cursor-pointer">
