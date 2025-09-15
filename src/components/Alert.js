@@ -1,30 +1,32 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const Alert = ({ message, errorCode }) => {
+const Alert = (message) => {
   const [isAlertMessageVisible, setIsAlertVisible] = useState(true);
   useEffect(() => {
     let alertTime;
-    if (errorCode) {
+    if (message) {
+      console.log(message.code);
       alertTime = setTimeout(() => {
         setIsAlertVisible(false);
       }, 3000);
     }
     return () => {
       if (alertTime) clearTimeout(alertTime);
+      setIsAlertVisible(false);
     };
-  }, [errorCode]);
+  }, [message]);
 
-  return (
+  /* return (
     isAlertMessageVisible && (
-      <p
+      /*<p
         className={
           errorCode
             ? "error-text alert-response"
             : "success-text alert-response"
         }
       >
-        {errorCode ? (
+        {{message ? (
           message
         ) : (
           <>
@@ -34,9 +36,13 @@ const Alert = ({ message, errorCode }) => {
             </Link>
             &nbsp;and enjoy the app.
           </>
-        )}
+        ) } }
       </p>
     )
+  );*/
+
+  return (
+    message && <p className="error-text alert-response">{message.message}</p>
   );
 };
 

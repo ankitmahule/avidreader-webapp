@@ -10,9 +10,7 @@ import { resetAuthState } from "../utils/auth/authSlice";
 const Login = ({ toggleLoginRegisterView }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
-  const { loading, error, success, userInfo } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, error, userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
     if (userInfo && userInfo?.status === 200) {
@@ -60,10 +58,7 @@ const Login = ({ toggleLoginRegisterView }) => {
         >
           {({ isValid, isSubmitting }) => (
             <Form>
-              {!isSubmitting &&
-                ((error && error !== "Network Error") || success) && (
-                  <Alert {...(error ? error : success)}></Alert>
-                )}
+              {!isSubmitting && error && <Alert message={error}></Alert>}
               <div className="form-field">
                 <div className="relative">
                   <Field
