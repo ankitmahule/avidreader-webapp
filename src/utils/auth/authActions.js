@@ -81,6 +81,6 @@ const handleError = (error, rejectWithValue) => {
   if (error?.response?.data?.message) {
     return rejectWithValue(error?.response?.data);
   } else {
-    return rejectWithValue(error?.message);
+    return rejectWithValue({ code: error?.code, message: error?.message });
   }
 };
