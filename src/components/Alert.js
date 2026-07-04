@@ -5,7 +5,7 @@ const Alert = (message) => {
   const [isAlertMessageVisible, setIsAlertVisible] = useState(true);
   useEffect(() => {
     let alertTime;
-    if (message && message.code) {
+    if (message && (message.code || message.errorCode)) {
       alertTime = setTimeout(() => {
         setIsAlertVisible(false);
       }, 3000);
@@ -42,7 +42,7 @@ const Alert = (message) => {
 
   return (
     message &&
-    message.code &&
+    (message.code || message.errorCode) &&
     isAlertMessageVisible && (
       <p className="error-text alert-response">{message.message}</p>
     )

@@ -48,7 +48,7 @@ const Register = ({ toggleLoginRegisterView }) => {
               errors.password = "Minimum length of password should be >= 8";
 
             if (!values.contactNo) errors.contactNo = "This field is required";
-            else if (!/^[0-9]{10}$/.test(values.contactNo))
+            else if (!/^\d{10}$/.test(values.contactNo))
               errors.contactNo =
                 "Contact no. should be of 10 digits only and a number";
             return errors;
@@ -63,10 +63,10 @@ const Register = ({ toggleLoginRegisterView }) => {
             <Form>
               {!isSubmitting &&
                 ((error && error !== "Network Error") || success) && (
-                  <Alert {...(error ? error : success)}></Alert>
+                  <Alert {...(error || success)}></Alert>
                 )}
               <div className="form-field flex justify-between">
-                <div class="name-container">
+                <div className="name-container">
                   <div className="relative">
                     <Field
                       type="text"
@@ -74,7 +74,7 @@ const Register = ({ toggleLoginRegisterView }) => {
                       name="firstName"
                       autoComplete="off"
                     />
-                    <label>First Name</label>
+                    <label htmlFor="firstName">First Name</label>
                   </div>
                   <ErrorMessage
                     className="field-error"
@@ -91,7 +91,7 @@ const Register = ({ toggleLoginRegisterView }) => {
                       name="lastName"
                       autoComplete="off"
                     />
-                    <label>Last Name</label>
+                    <label htmlFor="lastName">Last Name</label>
                   </div>
                   <ErrorMessage
                     className="field-error"
@@ -109,7 +109,7 @@ const Register = ({ toggleLoginRegisterView }) => {
                     name="email"
                     autoComplete="off"
                   />
-                  <label>Email Address</label>
+                  <label htmlFor="email">Email Address</label>
                 </div>
                 <ErrorMessage
                   className="field-error"
@@ -125,7 +125,7 @@ const Register = ({ toggleLoginRegisterView }) => {
                     name="password"
                     autoComplete="off"
                   />
-                  <label>Password</label>
+                  <label htmlFor="password">Password</label>
                 </div>
                 <ErrorMessage
                   className="field-error"
@@ -141,7 +141,7 @@ const Register = ({ toggleLoginRegisterView }) => {
                     autoComplete="off"
                     placeholder=""
                   />
-                  <label>Contact No.</label>
+                  <label htmlFor="contactNo">Contact No.</label>
                 </div>
                 <ErrorMessage
                   className="field-error"

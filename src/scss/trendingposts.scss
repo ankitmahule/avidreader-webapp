@@ -1,0 +1,12 @@
+@import "./variables.scss";
+.trending-section {
+  h1 {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
+  .trending-cards {
+    padding: 1rem;
+    border: 1px solid $light-gray;
+    margin: 1rem 0;
+  }
+}
