@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { logout, viewProfile } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
 
-const DashboardHeader = (userInfo) => {
+const LeftSidebar = (userInfo) => {
   const [logoutSection, setLogoutSection] = useState(false);
   const dispatch = useDispatch();
   function logoutUser() {
@@ -39,6 +39,12 @@ const DashboardHeader = (userInfo) => {
           </Link>
         </li>
         <li>
+          <Link to="/notifications">
+            <p className="fa fa-bell mr-2"></p>
+            <p>Notifications</p>
+          </Link>
+        </li>
+        <li>
           <Link to="/explore">
             <p className="fa fa-search mr-2"></p>
             <p>Explore</p>
@@ -56,7 +62,6 @@ const DashboardHeader = (userInfo) => {
             <p>Bookmarks</p>
           </Link>
         </li>
-
         <li>
           <Link to="/profile">
             <p className="fa fa-user mr-2"></p>
@@ -85,4 +90,4 @@ const DashboardHeader = (userInfo) => {
   );
 };
 
-export default DashboardHeader;
+export default LeftSidebar;

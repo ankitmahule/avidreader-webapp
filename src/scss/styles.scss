@@ -45,9 +45,8 @@ body {
 
 .error-text {
   color: $error-red;
-  border: 1px solid #c5302f;
   color: #c5302f;
-  background: #fef4f5;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .field-error {
@@ -76,6 +75,6 @@ button[disabled] {
   color: rgb(41, 41, 163);
 }
 .layout {
-  width:80%;
+  width: 80%;
   margin: 0 auto;
 }

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../scss/header.scss";
 import { useLocation } from "react-router-dom";
-import DashboardHeader from "./DashboardHeader";
+import LeftSidebar from "./LeftSidebar";
 import HomeLogo from "../assets/images/home.svg";
 import { useSelector } from "react-redux";
 
@@ -28,7 +28,7 @@ const Header = () => {
       </nav>
     </header>
   ) : (
-    <DashboardHeader {...userInfo} />
+    <LeftSidebar {...userInfo} />
   );
 };
 

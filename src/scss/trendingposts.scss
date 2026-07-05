@@ -8,5 +8,20 @@
     padding: 1rem;
     border: 1px solid $light-gray;
     margin: 1rem 0;
+    cursor: pointer;
+    .view-link {
+      color: $button-color;
+      display: none;
+    }
+    &:hover {
+      .view-link {
+        display: block;
+      }
+    }
+  }
+  .view-more-link {
+    display: flex;
+    justify-content: flex-end;
+    color: $button-color;
   }
 }

@@ -7,8 +7,9 @@ import store from "./utils/store";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Explore from "./components/Explore";
 import Bookmark from "./components/Bookmark";
-import Setting from "./components/Setting";
+import Settings from "./components/Settings";
 import Profile from "./components/Profile";
+import Notifications from "./components/Notifications";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
 import RightSidebar from "./components/Right-Sidebar";
@@ -21,7 +22,7 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <section className={!isLocationHome ? "flex" : ""}>
+        <section className={isLocationHome ? "" : "flex"}>
           <Header />
           <Outlet />
           {!isLocationHome && <RightSidebar />}
@@ -56,11 +57,15 @@ const appRouter = createBrowserRouter([
           },
           {
             path: "/settings",
-            element: <Setting />,
+            element: <Settings />,
           },
           {
             path: "/profile",
             element: <Profile />,
+          },
+          {
+            path: "/notifications",
+            element: <Notifications />,
           },
         ],
       },

@@ -32,7 +32,8 @@ const Login = ({ toggleLoginRegisterView }) => {
     <div className="form-container">
       <div className="login-form">
         <Formik
-          validateOnMount={true}
+          validateOnChange={false}
+          validateOnBlur={false}
           initialValues={{ email: "", password: "" }}
           validate={(values) => {
             const errors = {};
@@ -62,7 +63,7 @@ const Login = ({ toggleLoginRegisterView }) => {
               <div className="form-field">
                 <div className="relative">
                   <Field
-                    type="email"
+                    type="text"
                     name="email"
                     autoComplete="off"
                     placeholder=""
