@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch } from "../utils/store";
 import { Formik, Form, Field } from "formik";
 import "../scss/addquote.scss";
 import ProfilePic from "./ProfilePic";
@@ -13,7 +14,7 @@ const AddQuote = () => {
   const [image, setImage] = useState(null);
   const [file, setFile] = useState(null);
   const { loading, error, success } = useSelector((state) => state.quotes);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (success && success?.status === 200) {

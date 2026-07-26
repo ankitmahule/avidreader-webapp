@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch } from "../utils/store";
 import "../scss/quotes.scss";
 import ProfilePic from "./ProfilePic";
 import { useEffect, useState } from "react";
@@ -12,7 +13,7 @@ const Quotes = ({ quotesList, isBookmarkPage }) => {
   const quotes = quotesList;
   const { userInfo } = useSelector((state) => state.auth);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getQuotes());
 

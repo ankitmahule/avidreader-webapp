@@ -12,7 +12,7 @@ import Profile from "./components/Profile";
 import Notifications from "./components/Notifications";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
-import RightSidebar from "./components/Right-Sidebar";
+import RightSidebar from "./components/RightSidebar";
 
 const persistor = persistStore(store);
 

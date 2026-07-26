@@ -3,13 +3,14 @@ import HomeLogo from "../assets/images/home.svg";
 import "../scss/layout.scss";
 import ProfilePic from "./ProfilePic";
 import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../utils/store";
 import { useEffect, useState } from "react";
 import { logout, viewProfile } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
 
 const LeftSidebar = (userInfo) => {
   const [logoutSection, setLogoutSection] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   function logoutUser() {
     dispatch(logout());
   }

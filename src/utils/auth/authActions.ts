@@ -10,7 +10,7 @@ export const registerUser = createAsyncThunk(
   "auth/register",
   async (values, { rejectWithValue }) => {
     try {
-      const config = {
+      const config: any = {
         headers: {
           "content-type": "application/json",
         },
@@ -25,7 +25,10 @@ export const registerUser = createAsyncThunk(
 
 export const userLogin = createAsyncThunk(
   "auth/login",
-  async ({ email, password }, { rejectWithValue }) => {
+  async (
+    values: { email: string; password: string },
+    { rejectWithValue }
+  ) => {
     try {
       const config = {
         withCredentials: true,
@@ -33,7 +36,11 @@ export const userLogin = createAsyncThunk(
           "content-type": "application/json",
         },
       };
-      const response = await axios.post(LOGIN_API, { email, password }, config);
+      const response = await axios.post(
+        LOGIN_API,
+        { email: values.email, password: values.password },
+        config
+      );
       if (response?.data) {
         return response?.data;
       }

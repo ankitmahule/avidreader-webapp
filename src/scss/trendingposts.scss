@@ -1,4 +1,4 @@
-@import "./variables.scss";
+@use "variables" as *;
 .trending-section {
   h1 {
     font-size: 1.2rem;

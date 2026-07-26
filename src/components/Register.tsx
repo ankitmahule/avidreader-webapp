@@ -5,11 +5,12 @@ import Alert from "./Alert";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
+import type { AppDispatch } from "../utils/store";
 
 const Register = ({ toggleLoginRegisterView }) => {
-  const { loading, error, success } = useSelector((state) => state.auth);
+  const { loading, error, success } = useSelector((state: any) => state.auth);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     return () => {
@@ -33,7 +34,13 @@ const Register = ({ toggleLoginRegisterView }) => {
             lastName: "",
           }}
           validate={(values) => {
-            const errors = {};
+            const errors = {
+              email: "",
+              password: "",
+              contactNo: "",
+              firstName: "",
+              lastName: "",
+            };
             if (!values.firstName) errors.firstName = "This field is required";
             if (!values.lastName) errors.lastName = "This field is required";
 

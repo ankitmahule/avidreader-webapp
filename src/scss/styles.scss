@@ -1,4 +1,5 @@
-@import "./variables";
+@use "variables" as *;
+
 * {
   margin: 0;
   padding: 0;
@@ -12,10 +13,6 @@ body {
   font-family: "Encode Sans", sans-serif;
   font-family: "Ubuntu", sans-serif;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @media screen and (min-width: 768px) {
   .container {
@@ -45,7 +42,6 @@ body {
 
 .error-text {
   color: $error-red;
-  color: #c5302f;
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -56,7 +52,6 @@ body {
 .success-text {
   color: $success-green;
   border: 1px solid #77c59f;
-  color: #53947a;
   background: #f0fcf5;
 }
 

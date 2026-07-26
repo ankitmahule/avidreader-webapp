@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
+import type { AppDispatch } from "../utils/store";
 
 const Login = ({ toggleLoginRegisterView }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate();
-  const { loading, error, userInfo } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const { loading, error, userInfo } = useSelector((state: any) => state.auth);
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     if (userInfo && userInfo?.status === 200) {
       navigate("/dashboard");
@@ -36,7 +37,7 @@ const Login = ({ toggleLoginRegisterView }) => {
           validateOnBlur={false}
           initialValues={{ email: "", password: "" }}
           validate={(values) => {
-            const errors = {};
+            const errors: Partial<typeof values> = {};
             if (!values.email) {
               errors.email = "This field is required";
             } else if (
@@ -51,10 +52,13 @@ const Login = ({ toggleLoginRegisterView }) => {
             }
             return errors;
           }}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            dispatch(userLogin(values));
-            resetForm();
-            setSubmitting(false);
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            try {
+              await dispatch(userLogin(values)).unwrap();
+              resetForm();
+            } finally {
+              setSubmitting(false);
+            }
           }}
         >
           {({ isValid, isSubmitting }) => (
@@ -102,7 +106,9 @@ const Login = ({ toggleLoginRegisterView }) => {
                 component="div"
               />
               <div className="form-field flex justify-between items-center">
-                <Link className="forgot-password">Forgot Password?</Link>
+                <Link to="/" className="forgot-password">
+                  Forgot Password?
+                </Link>
                 <button className="btn" type="submit" disabled={loading}>
                   {loading ? "Loading" : "Sign In"}
                 </button>

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true, // Allows you to keep your existing .js/.jsx files
+    "checkJs": false, // Skips type-checking existing JS files for now
+    "skipLibCheck": true,
+    "esModuleInterop": true, // Fixes compatibility with CommonJS modules
+    "allowSyntheticDefaultImports": true,
+    "strict": false, // Start with false to ease the initial migration
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true, // Tells TS to only check types, letting Vite/Webpack handle the build
+    "jsx": "react-jsx" // Essential for handling React JSX syntax
+  },
+  "include": ["src/**/*", "src/global.d.ts"]
+}
