@@ -1,3 +1,4 @@
+"use client";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../utils/store";
 import { Formik, Form, Field } from "formik";
@@ -9,6 +10,7 @@ import { useEffect, useState } from "react";
 import { resetQuotesState } from "../utils/quotes/quoteSlice";
 import Modal from "./Modal";
 import LinearProgress from "@mui/material/LinearProgress";
+import Image from "next/image";
 const AddQuote = () => {
   const [showModal, setShowModal] = useState(false);
   const [image, setImage] = useState(null);
@@ -84,7 +86,13 @@ const AddQuote = () => {
 
                 {image && (
                   <div className="img-container">
-                    <img src={image} alt="quote" />
+                    <Image
+                      src={image}
+                      alt="Selected quote preview"
+                      width={640}
+                      height={360}
+                      unoptimized
+                    />
                     <em
                       className="fa fa-times-circle cursor-pointer"
                       onClick={closeImagePreview}

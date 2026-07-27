@@ -4,6 +4,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Image from "next/image";
 
 const Modal = ({ open, close, content }) => {
   return (
@@ -16,7 +17,15 @@ const Modal = ({ open, close, content }) => {
       <DialogTitle id="alert-dialog-title">{"Preview Post"}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          <img src={content} alt="quote image" />
+          {content && (
+            <Image
+              src={content}
+              alt="Quote preview"
+              width={800}
+              height={600}
+              unoptimized
+            />
+          )}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

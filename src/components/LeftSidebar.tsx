@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import HomeLogo from "../assets/images/home.svg";
+"use client";
+import Link from "next/link";
+import HomeLogo from "../../public/images/home.svg";
 import "../scss/layout.scss";
 import ProfilePic from "./ProfilePic";
 import { useDispatch } from "react-redux";
@@ -7,6 +8,7 @@ import type { AppDispatch } from "../utils/store";
 import { useEffect, useState } from "react";
 import { logout, viewProfile } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
+import Image from "next/image";
 
 const LeftSidebar = (userInfo) => {
   const [logoutSection, setLogoutSection] = useState(false);
@@ -28,43 +30,49 @@ const LeftSidebar = (userInfo) => {
   return !userInfo ? null : (
     <aside className="aside">
       <div className="my-4 dashboard-logo">
-        <Link to="/dashboard">
-          <img src={HomeLogo} alt="logo" />
+        <Link href="/dashboard">
+          <Image
+            src={HomeLogo}
+            alt="Avid Reader"
+            width={200}
+            height={49}
+            priority
+          />
         </Link>
       </div>
       <ul className="dashboard-menu">
         <li>
-          <Link to="/dashboard">
+          <Link href="/dashboard">
             <p className="fa fa-home mr-2"></p>
             <p>Home</p>
           </Link>
         </li>
         <li>
-          <Link to="/notifications">
+          <Link href="/notifications">
             <p className="fa fa-bell mr-2"></p>
             <p>Notifications</p>
           </Link>
         </li>
         <li>
-          <Link to="/explore">
+          <Link href="/explore">
             <p className="fa fa-search mr-2"></p>
             <p>Explore</p>
           </Link>
         </li>
         <li>
-          <Link to="/settings">
+          <Link href="/settings">
             <p className="fa fa-cog mr-2"></p>
             <p>Settings</p>
           </Link>
         </li>
         <li>
-          <Link to="/bookmarks">
+          <Link href="/bookmarks">
             <p className="fa fa-bookmark mr-2"></p>
             <p>Bookmarks</p>
           </Link>
         </li>
         <li>
-          <Link to="/profile">
+          <Link href="/profile">
             <p className="fa fa-user mr-2"></p>
             <p>Profile</p>
           </Link>

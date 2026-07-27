@@ -1,3 +1,4 @@
+"use client";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useEffect } from "react";
 import "../scss/forms.scss";

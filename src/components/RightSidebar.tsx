@@ -1,3 +1,4 @@
+"use client";
 import "../scss/layout.scss";
 import TrendingPosts from "./TrendingPosts";
 const RightSidebar = () => {

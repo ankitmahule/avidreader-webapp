@@ -1,10 +1,10 @@
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 import "../scss/body.scss";
 import Login from "./Login";
 import Register from "./Register";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 const Body = () => {
   const [toggleLoginRegister, setToggleLoginRegister] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
@@ -12,11 +12,11 @@ const Body = () => {
     setToggleLoginRegister(toggleFlag);
   }
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/dashboard");
+      router.push("/dashboard");
     }
   });
 

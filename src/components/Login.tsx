@@ -1,5 +1,7 @@
+"use client";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 import "../scss/forms.scss";
 import Alert from "./Alert";
 import { useEffect, useState } from "react";
@@ -8,19 +10,19 @@ import { userLogin } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
 import type { AppDispatch } from "../utils/store";
 
-const Login = ({ toggleLoginRegisterView }) => {
+const Login = ({ toggleLoginRegisterView }: any) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
   const { loading, error, userInfo } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     if (userInfo && userInfo?.status === 200) {
-      navigate("/dashboard");
+      router.push("/dashboard");
     }
     return () => {
       dispatch(resetAuthState());
     };
-  }, [userInfo, navigate, dispatch]);
+  }, [userInfo, dispatch]);
 
   function toggleView() {
     toggleLoginRegisterView(true);
@@ -106,7 +108,7 @@ const Login = ({ toggleLoginRegisterView }) => {
                 component="div"
               />
               <div className="form-field flex justify-between items-center">
-                <Link to="/" className="forgot-password">
+                <Link href="/" className="forgot-password">
                   Forgot Password?
                 </Link>
                 <button className="btn" type="submit" disabled={loading}>

@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import "../scss/layout.scss";
 import Quotes from "./Quotes";
@@ -13,7 +14,7 @@ const Bookmark = () => {
       setBookmarkedQuotes(
         quotes.filter((eachQuote) => {
           return eachQuote.bookmarkedBy.includes(userInfo?.id);
-        })
+        }),
       );
     }
   }, [quotes, userInfo]);

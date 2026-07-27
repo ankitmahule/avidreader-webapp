@@ -1,3 +1,4 @@
+"use client";
 import { useSelector } from "react-redux";
 import "../scss/layout.scss";
 import "../scss/profile.scss";

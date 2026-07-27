@@ -1,3 +1,4 @@
+"use client";
 import "../scss/dashboard.scss";
 import "../scss/layout.scss";
 import AddQuote from "./AddQuote";

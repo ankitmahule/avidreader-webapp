@@ -1,3 +1,4 @@
+"use client";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch } from "../utils/store";
 import "../scss/quotes.scss";
@@ -5,6 +6,7 @@ import ProfilePic from "./ProfilePic";
 import { useEffect, useState } from "react";
 import { getQuotes, bookmarkQuote } from "../utils/quotes/quoteActions";
 import { resetQuotesState } from "../utils/quotes/quoteSlice";
+import Image from "next/image";
 
 const Quotes = ({ quotesList, isBookmarkPage }) => {
   // const isBookmarkPage = isBookmarkPage;
@@ -69,7 +71,12 @@ const Quotes = ({ quotesList, isBookmarkPage }) => {
             <div className="card-content">
               {eachQuote?.content && <p>{eachQuote?.content}</p>}
               {eachQuote?.contentImage && (
-                <img src={eachQuote?.contentImage} alt="content" />
+                <Image
+                  src={eachQuote.contentImage}
+                  alt="Quote attachment"
+                  width={640}
+                  height={420}
+                />
               )}
             </div>
 

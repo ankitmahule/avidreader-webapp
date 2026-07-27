@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const Alert = (message) => {
   const [isAlertMessageVisible, setIsAlertVisible] = useState(true);
@@ -30,7 +30,7 @@ const Alert = (message) => {
         ) : (
           <>
             {message}. Please proceed with&nbsp;
-            <Link className="link" to="/">
+            <Link className="link" href="/">
               Login
             </Link>
             &nbsp;and enjoy the app.
