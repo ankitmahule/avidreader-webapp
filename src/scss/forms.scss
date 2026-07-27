@@ -1,9 +1,10 @@
 @use "./_variables" as *;
 @use "./styles.scss";
+
 .form-container {
   margin: 0 auto;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   align-items: center;
   .forgot-password {
     text-decoration: underline;
@@ -17,8 +18,18 @@
     text-align: center;
   }
   .login-form {
-    width: 75%;
-    padding: 1rem 3rem;
+    .login-form-heading {
+      color: #fff;
+      text-align: center;
+      h1 {
+        font-size: 2.8rem;
+      }
+      h4 {
+        font-size: 1rem;
+      }
+    }
+    width: 80%;
+    padding: 3.5rem;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 0.5rem;
 
@@ -32,6 +43,8 @@
 }
 
 .form-field {
+  margin: 2rem 0 0 0;
+  position: relative;
   input {
     padding: 0.9rem;
     border-radius: 0.5rem;
@@ -62,10 +75,6 @@
       }
     }
   }
-}
-.form-field {
-  margin: 2rem 0 0 0;
-  position: relative;
 }
 .password-show {
   position: absolute;

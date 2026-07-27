@@ -66,6 +66,10 @@ const Login = ({ toggleLoginRegisterView }: any) => {
           {({ isValid, isSubmitting }) => (
             <Form>
               {!isSubmitting && error && <Alert {...error}></Alert>}
+              <div className="login-form-heading">
+                <h1>Welcome Back</h1>
+                <h4>Continue your reading journey</h4>
+              </div>
               <div className="form-field">
                 <div className="relative">
                   <Field
