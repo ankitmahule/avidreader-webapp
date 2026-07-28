@@ -41,7 +41,6 @@ The application uses a focused three-column reading layout: navigation on the le
 | Language | TypeScript |
 | UI | React 19, Tailwind CSS 4, Sass, MUI |
 | State | Redux Toolkit, React Redux, Redux Persist |
-| Forms | Formik |
 | API client | Axios |
 | Icons | Font Awesome |
 | Backend | Separate Node.js and Express API |

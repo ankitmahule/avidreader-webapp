@@ -6,11 +6,12 @@ import {
   PROFILE_API,
   LOGOUT_API,
 } from "../../shared/constants";
+import type { RegisterFormOutput } from "../../lib/validation/auth";
 export const registerUser = createAsyncThunk(
   "auth/register",
-  async (values, { rejectWithValue }) => {
+  async (values: RegisterFormOutput, { rejectWithValue }) => {
     try {
-      const config: any = {
+      const config = {
         headers: {
           "content-type": "application/json",
         },
@@ -20,15 +21,12 @@ export const registerUser = createAsyncThunk(
     } catch (error) {
       return handleError(error, rejectWithValue);
     }
-  }
+  },
 );
 
 export const userLogin = createAsyncThunk(
   "auth/login",
-  async (
-    values: { email: string; password: string },
-    { rejectWithValue }
-  ) => {
+  async (values: { email: string; password: string }, { rejectWithValue }) => {
     try {
       const config = {
         withCredentials: true,
@@ -39,7 +37,7 @@ export const userLogin = createAsyncThunk(
       const response = await axios.post(
         LOGIN_API,
         { email: values.email, password: values.password },
-        config
+        config,
       );
       if (response?.data) {
         return response?.data;
@@ -47,7 +45,7 @@ export const userLogin = createAsyncThunk(
     } catch (error) {
       if (error) return handleError(error, rejectWithValue);
     }
-  }
+  },
 );
 
 export const viewProfile = createAsyncThunk(
@@ -64,7 +62,7 @@ export const viewProfile = createAsyncThunk(
     } catch (error) {
       if (error) return handleError(error, rejectWithValue);
     }
-  }
+  },
 );
 
 export const logout = createAsyncThunk(
@@ -81,7 +79,7 @@ export const logout = createAsyncThunk(
     } catch (error) {
       if (error) return handleError(error, rejectWithValue);
     }
-  }
+  },
 );
 
 const handleError = (error, rejectWithValue) => {

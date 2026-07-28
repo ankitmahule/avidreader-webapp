@@ -8,12 +8,9 @@ import {
 } from "../../shared/constants";
 export const saveQuote = createAsyncThunk(
   "quotes/saveQuote",
-  async (request, { rejectWithValue }) => {
+  async (request: FormData, { rejectWithValue }) => {
     try {
       const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
         withCredentials: true,
       };
       const response = await axios.post(SAVE_QUOTE_API, request, config);
@@ -21,7 +18,7 @@ export const saveQuote = createAsyncThunk(
     } catch (error) {
       return handleError(error, rejectWithValue);
     }
-  }
+  },
 );
 
 export const uploadQuote = createAsyncThunk(
@@ -38,7 +35,7 @@ export const uploadQuote = createAsyncThunk(
     } catch (error) {
       return handleError(error, rejectWithValue);
     }
-  }
+  },
 );
 
 export const getQuotes = createAsyncThunk(
@@ -55,7 +52,7 @@ export const getQuotes = createAsyncThunk(
     } catch (error) {
       if (error) return handleError(error, rejectWithValue);
     }
-  }
+  },
 );
 
 export const bookmarkQuote = createAsyncThunk(
@@ -72,7 +69,7 @@ export const bookmarkQuote = createAsyncThunk(
     } catch (error) {
       if (error) return handleError(error, rejectWithValue);
     }
-  }
+  },
 );
 
 const handleError = (error, rejectWithValue) => {

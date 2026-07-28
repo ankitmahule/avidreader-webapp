@@ -1,141 +1,175 @@
 "use client";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useRouter } from "next/navigation";
+
 import Link from "next/link";
-import "../scss/forms.scss";
-import Alert from "./Alert";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import Alert from "./Alert";
 import { userLogin } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
-import type { AppDispatch } from "../utils/store";
+import type { AppDispatch, RootState } from "../utils/store";
 
-const Login = ({ toggleLoginRegisterView }: any) => {
+import {
+  loginSchema,
+  type LoginFormValues,
+  type LoginFormOutput,
+} from "../lib/validation/auth";
+
+import "../scss/forms.scss";
+
+type LoginProps = {
+  toggleLoginRegisterView: (showRegister: boolean) => void;
+};
+
+const Login = ({ toggleLoginRegisterView }: LoginProps) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+
   const router = useRouter();
-  const { loading, error, userInfo } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch<AppDispatch>();
+
+  const { loading, error, userInfo } = useSelector(
+    (state: RootState) => state.auth,
+  );
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormValues, undefined, LoginFormOutput>({
+    resolver: zodResolver(loginSchema),
+    mode: "onSubmit",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   useEffect(() => {
-    if (userInfo && userInfo?.status === 200) {
+    if (userInfo?.status === 200) {
       router.push("/dashboard");
     }
+  }, [userInfo, router]);
+
+  useEffect(() => {
     return () => {
       dispatch(resetAuthState());
     };
-  }, [userInfo, dispatch]);
+  }, [dispatch]);
 
-  function toggleView() {
-    toggleLoginRegisterView(true);
-  }
+  const onSubmit = async (values: LoginFormOutput) => {
+    try {
+      await dispatch(userLogin(values)).unwrap();
+      reset();
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
+  };
 
-  function togglePasswordVisible(isPasswordVisible) {
-    setPasswordVisible(isPasswordVisible);
-  }
   return (
     <div className="form-container">
       <div className="login-form">
-        <Formik
-          validateOnChange={false}
-          validateOnBlur={false}
-          initialValues={{ email: "", password: "" }}
-          validate={(values) => {
-            const errors: Partial<typeof values> = {};
-            if (!values.email) {
-              errors.email = "This field is required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = "Invalid email address";
-            }
-            if (!values.password) {
-              errors.password = "This field is required";
-            } else if (values.password.length < 8) {
-              errors.password = "Minimum length of password should be >= 8";
-            }
-            return errors;
-          }}
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
-            try {
-              await dispatch(userLogin(values)).unwrap();
-              resetForm();
-            } finally {
-              setSubmitting(false);
-            }
-          }}
-        >
-          {({ isValid, isSubmitting }) => (
-            <Form>
-              {!isSubmitting && error && <Alert {...error}></Alert>}
-              <div className="login-form-heading">
-                <h1>Welcome Back</h1>
-                <h4>Continue your reading journey</h4>
-              </div>
-              <div className="form-field">
-                <div className="relative">
-                  <Field
-                    type="text"
-                    name="email"
-                    autoComplete="off"
-                    placeholder=""
-                    id="email"
-                  />
-                  <label htmlFor="email">Email Address</label>
-                </div>
-                <ErrorMessage
-                  className="field-error"
-                  name="email"
-                  component="div"
-                />
-              </div>
-              <div className="form-field">
-                <div className="relative">
-                  <Field
-                    type={passwordVisible ? "text" : "password"}
-                    name="password"
-                    autoComplete="off"
-                    placeholder=""
-                    id="password"
-                  />
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          {!isSubmitting && error && <Alert {...error} />}
 
-                  <label htmlFor="password">Password</label>
-                </div>
+          <div className="login-form-heading">
+            <h1>Welcome Back</h1>
+
+            <h4 className="text-gray-400">Continue your reading journey</h4>
+          </div>
+
+          <div className="form-field">
+            <div className="relative">
+              <input
+                type="email"
+                id="email"
+                placeholder=" "
+                autoComplete="email"
+                aria-invalid={Boolean(errors.email)}
+                {...register("email")}
+              />
+
+              <label htmlFor="email">Email Address</label>
+            </div>
+
+            {errors.email && (
+              <div className="field-error" role="alert">
+                {errors.email.message}
+              </div>
+            )}
+          </div>
+
+          <div className="form-field">
+            <div className="relative">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                id="password"
+                placeholder=" "
+                autoComplete="current-password"
+                aria-invalid={Boolean(errors.password)}
+                {...register("password")}
+              />
+
+              <label htmlFor="password">Password</label>
+
+              <button
+                type="button"
+                className="password-toggle"
+                aria-label={passwordVisible ? "Hide password" : "Show password"}
+                onClick={() => setPasswordVisible((visible) => !visible)}
+              >
                 <i
                   className={`fa ${
                     passwordVisible ? "fa-eye" : "fa-eye-slash"
                   } password-show`}
-                  onClick={() => togglePasswordVisible(!passwordVisible)}
-                ></i>
+                />
+              </button>
+            </div>
+
+            {errors.password && (
+              <div className="field-error" role="alert">
+                {errors.password.message}
               </div>
-              <ErrorMessage
-                className="field-error"
-                name="password"
-                component="div"
-              />
-              <div className="form-field flex justify-between items-center">
-                <Link href="/" className="forgot-password">
-                  Forgot Password?
-                </Link>
-                <button className="btn" type="submit" disabled={loading}>
-                  {loading ? "Loading" : "Sign In"}
-                </button>
-              </div>
-              <div className="text-center social-login">
-                <span className="text-4xl ml-4 fa-brands fa-facebook"></span>
-                <span className="text-4xl ml-4 fa-brands fa-google"></span>
-              </div>
-              <div className="form-field text-center text-gray-400">
-                New User?
-              </div>
-              <div className="form-field text-center">
-                <button className="btn" onClick={toggleView}>
-                  Create Account
-                </button>
-              </div>
-            </Form>
-          )}
-        </Formik>
+            )}
+          </div>
+
+          <div className="form-field flex justify-between items-center">
+            <Link href="/" className="forgot-password">
+              Forgot Password?
+            </Link>
+
+            <button
+              className="btn"
+              type="submit"
+              disabled={loading || isSubmitting}
+            >
+              {loading || isSubmitting ? "Signing in..." : "Sign In"}
+            </button>
+          </div>
+
+          <div className="text-center social-login">
+            <span className="text-4xl ml-4 fa-brands fa-facebook" />
+            <span className="text-4xl ml-4 fa-brands fa-google" />
+          </div>
+
+          <div className="form-field text-center text-gray-400">New User?</div>
+
+          <div className="form-field text-center">
+            <button
+              className="btn"
+              type="button"
+              onClick={() => toggleLoginRegisterView(true)}
+            >
+              Create Account
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
 };
+
 export default Login;

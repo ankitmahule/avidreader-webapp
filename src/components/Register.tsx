@@ -1,17 +1,52 @@
 "use client";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useEffect } from "react";
-import "../scss/forms.scss";
-import Alert from "./Alert";
+
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import Alert from "./Alert";
 import { registerUser } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
-import type { AppDispatch } from "../utils/store";
+import type { AppDispatch, RootState } from "../utils/store";
 
-const Register = ({ toggleLoginRegisterView }) => {
-  const { loading, error, success } = useSelector((state: any) => state.auth);
+import {
+  registerSchema,
+  type RegisterFormValues,
+  type RegisterFormOutput,
+} from "../lib/validation/auth";
+
+import "../scss/forms.scss";
+
+type RegisterProps = {
+  toggleLoginRegisterView: (showRegister: boolean) => void;
+};
+
+const Register = ({ toggleLoginRegisterView }: RegisterProps) => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const { loading, error, success } = useSelector(
+    (state: RootState) => state.auth,
+  );
+
+  const {
+    register: registerField,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormValues, undefined, RegisterFormOutput>({
+    resolver: zodResolver(registerSchema),
+    mode: "onSubmit",
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      contactNo: "",
+    },
+  });
 
   useEffect(() => {
     return () => {
@@ -19,162 +54,150 @@ const Register = ({ toggleLoginRegisterView }) => {
     };
   }, [dispatch]);
 
-  function toggleView() {
-    toggleLoginRegisterView(false);
-  }
+  const onSubmit = async (values: RegisterFormOutput) => {
+    try {
+      await dispatch(registerUser(values)).unwrap();
+      reset();
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
+
   return (
     <div className="form-container">
       <div className="login-form">
-        <Formik
-          validateOnMount={true}
-          initialValues={{
-            email: "",
-            password: "",
-            contactNo: "",
-            firstName: "",
-            lastName: "",
-          }}
-          validate={(values) => {
-            const errors = {
-              email: "",
-              password: "",
-              contactNo: "",
-              firstName: "",
-              lastName: "",
-            };
-            if (!values.firstName) errors.firstName = "This field is required";
-            if (!values.lastName) errors.lastName = "This field is required";
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          {!isSubmitting &&
+            ((error && error !== "Network Error") || success) && (
+              <Alert {...(error || success)} />
+            )}
 
-            if (!values.email) errors.email = "This field is required";
-            else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            )
-              errors.email = "Invalid email address";
+          <div className="login-form-heading">
+            <h1>Create your reader profile</h1>
+          </div>
 
-            if (!values.password) errors.password = "This field is required";
-            else if (values.password.length < 8)
-              errors.password = "Minimum length of password should be >= 8";
-
-            if (!values.contactNo) errors.contactNo = "This field is required";
-            else if (!/^\d{10}$/.test(values.contactNo))
-              errors.contactNo =
-                "Contact no. should be of 10 digits only and a number";
-            return errors;
-          }}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            dispatch(registerUser(values));
-            resetForm();
-            setSubmitting(false);
-          }}
-        >
-          {({ isValid, isSubmitting }) => (
-            <Form>
-              {!isSubmitting &&
-                ((error && error !== "Network Error") || success) && (
-                  <Alert {...(error || success)}></Alert>
-                )}
-              <div className="form-field flex justify-between">
-                <div className="name-container">
-                  <div className="relative">
-                    <Field
-                      type="text"
-                      placeholder=""
-                      name="firstName"
-                      autoComplete="off"
-                    />
-                    <label htmlFor="firstName">First Name</label>
-                  </div>
-                  <ErrorMessage
-                    className="field-error"
-                    name="firstName"
-                    component="div"
-                  />
-                </div>
-
-                <div className="name-container">
-                  <div className="relative">
-                    <Field
-                      type="text"
-                      placeholder=""
-                      name="lastName"
-                      autoComplete="off"
-                    />
-                    <label htmlFor="lastName">Last Name</label>
-                  </div>
-                  <ErrorMessage
-                    className="field-error"
-                    name="lastName"
-                    component="div"
-                  />
-                </div>
-              </div>
-
-              <div className="form-field">
-                <div className="relative">
-                  <Field
-                    type="email"
-                    placeholder=""
-                    name="email"
-                    autoComplete="off"
-                  />
-                  <label htmlFor="email">Email Address</label>
-                </div>
-                <ErrorMessage
-                  className="field-error"
-                  name="email"
-                  component="div"
+          <div className="form-field flex justify-between">
+            <div className="name-container">
+              <div className="relative">
+                <input
+                  type="text"
+                  id="firstName"
+                  placeholder=" "
+                  autoComplete="given-name"
+                  aria-invalid={Boolean(errors.firstName)}
+                  {...registerField("firstName")}
                 />
+
+                <label htmlFor="firstName">First Name</label>
               </div>
-              <div className="form-field">
-                <div className="relative">
-                  <Field
-                    type="password"
-                    placeholder=""
-                    name="password"
-                    autoComplete="off"
-                  />
-                  <label htmlFor="password">Password</label>
+
+              {errors.firstName && (
+                <div className="field-error" role="alert">
+                  {errors.firstName.message}
                 </div>
-                <ErrorMessage
-                  className="field-error"
-                  name="password"
-                  component="div"
+              )}
+            </div>
+
+            <div className="name-container">
+              <div className="relative">
+                <input
+                  type="text"
+                  id="lastName"
+                  placeholder=" "
+                  autoComplete="family-name"
+                  aria-invalid={Boolean(errors.lastName)}
+                  {...registerField("lastName")}
                 />
+
+                <label htmlFor="lastName">Last Name</label>
               </div>
-              <div className="form-field">
-                <div className="relative">
-                  <Field
-                    type="text"
-                    name="contactNo"
-                    autoComplete="off"
-                    placeholder=""
-                  />
-                  <label htmlFor="contactNo">Contact No.</label>
+
+              {errors.lastName && (
+                <div className="field-error" role="alert">
+                  {errors.lastName.message}
                 </div>
-                <ErrorMessage
-                  className="field-error"
-                  name="contactNo"
-                  component="div"
+              )}
+            </div>
+          </div>
+
+          <div className="form-field">
+            <div className="relative">
+              <input
+                type="email"
+                id="registerEmail"
+                placeholder=" "
+                autoComplete="email"
+                aria-invalid={Boolean(errors.email)}
+                {...registerField("email")}
+              />
+
+              <label htmlFor="registerEmail">Email Address</label>
+            </div>
+
+            {errors.email && (
+              <div className="field-error" role="alert">
+                {errors.email.message}
+              </div>
+            )}
+          </div>
+
+          <div className="form-field">
+            <div className="relative">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                id="registerPassword"
+                placeholder=" "
+                autoComplete="new-password"
+                aria-invalid={Boolean(errors.password)}
+                {...registerField("password")}
+              />
+
+              <label htmlFor="registerPassword">Password</label>
+
+              <button
+                type="button"
+                className="password-toggle"
+                aria-label={passwordVisible ? "Hide password" : "Show password"}
+                onClick={() => setPasswordVisible((visible) => !visible)}
+              >
+                <i
+                  className={`fa ${
+                    passwordVisible ? "fa-eye" : "fa-eye-slash"
+                  } password-show`}
                 />
+              </button>
+            </div>
+
+            {errors.password && (
+              <div className="field-error" role="alert">
+                {errors.password.message}
               </div>
-              <div className="flex justify-between items-center">
-                <p
-                  className="text-gray-400 cursor-pointer"
-                  onClick={toggleView}
-                >
-                  Already a user? Sign In
-                </p>
-                <div className="form-field">
-                  <button className="btn" type="submit" disabled={loading}>
-                    {loading ? "Loading" : "Submit"}
-                  </button>
-                </div>
-              </div>
-            </Form>
-          )}
-        </Formik>
+            )}
+          </div>
+
+          <div className="flex justify-between items-center">
+            <button
+              type="button"
+              className="text-gray-400 cursor-pointer"
+              onClick={() => toggleLoginRegisterView(false)}
+            >
+              Already a user? Sign In
+            </button>
+
+            <div className="form-field">
+              <button
+                className="btn"
+                type="submit"
+                disabled={loading || isSubmitting}
+              >
+                {loading || isSubmitting ? "Creating account..." : "Submit"}
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   );
 };
+
 export default Register;
