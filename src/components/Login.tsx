@@ -41,6 +41,7 @@ const Login = ({ toggleLoginRegisterView }: LoginProps) => {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormValues, undefined, LoginFormOutput>({
     resolver: zodResolver(loginSchema),
+    shouldFocusError: false,
     mode: "onSubmit",
     defaultValues: {
       email: "",
@@ -76,9 +77,8 @@ const Login = ({ toggleLoginRegisterView }: LoginProps) => {
           {!isSubmitting && error && <Alert {...error} />}
 
           <div className="login-form-heading">
-            <h1>Welcome Back</h1>
-
-            <h4 className="text-gray-400">Continue your reading journey</h4>
+            <h1>Where Readers Connect</h1>
+            <h4>Share the words that inspire you.</h4>
           </div>
 
           <div className="form-field">
@@ -136,30 +136,39 @@ const Login = ({ toggleLoginRegisterView }: LoginProps) => {
             )}
           </div>
 
-          <div className="form-field flex justify-between items-center">
+          <div className="form-field flex justify-end">
             <Link href="/" className="forgot-password">
               Forgot Password?
             </Link>
+          </div>
 
+          <div className="form-field">
             <button
-              className="btn"
+              className="btn w-full"
               type="submit"
               disabled={loading || isSubmitting}
             >
               {loading || isSubmitting ? "Signing in..." : "Sign In"}
             </button>
           </div>
-
-          <div className="text-center social-login">
-            <span className="text-4xl ml-4 fa-brands fa-facebook" />
-            <span className="text-4xl ml-4 fa-brands fa-google" />
+          <div className="form-field text-center">
+            <p className="text-gray-400">Or</p>
+          </div>
+          <div className="text-center social-login mt-10 mb-10">
+            <button type="button" className="flex items-center">
+              <span className="text-4xl mr-2 fa-brands fa-facebook" />
+              <p>Continue with Facebook</p>
+            </button>
+            <button type="button" className="flex items-center">
+              <span className="text-4xl mr-2 fa-brands fa-google" />
+              <p>Contiue with Google</p>
+            </button>
           </div>
 
-          <div className="form-field text-center text-gray-400">New User?</div>
-
-          <div className="form-field text-center">
+          <div className="flex justify-center items-center">
+            <p className="text-gray-400">New to Avid Reader?</p>
             <button
-              className="btn"
+              className="signin-btn cursor-pointer"
               type="button"
               onClick={() => toggleLoginRegisterView(true)}
             >

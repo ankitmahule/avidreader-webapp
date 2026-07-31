@@ -22,10 +22,11 @@
       color: $button-color;
       text-align: center;
       h1 {
-        font-size: 2.8rem;
+        font-size: 2.6rem;
       }
       h4 {
         font-size: 1rem;
+        color: $gray-shade-one;
       }
     }
     width: 80%;
@@ -34,16 +35,25 @@
     border-radius: 0.5rem;
 
     .social-login {
-      color: $button-color;
       span {
         cursor: pointer;
+        color: $button-color;
+      }
+      button {
+        width: 100%;
+        padding: 0.9rem;
+        margin: 1rem 0;
+        border: 1px solid $button-color;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 0.5rem;
       }
     }
   }
 }
 
 .form-field {
-  margin: 2rem 0 0 0;
+  margin: 1.7rem 0;
   position: relative;
   input {
     padding: 0.9rem;
@@ -102,10 +112,16 @@
 }
 
 input[aria-invalid="true"] {
-  border-color: #ff6b78;
+  border-color: $error-red;
+  background: $error-red-transparent;
 }
 
 button:disabled {
   cursor: not-allowed;
   opacity: 0.65;
+}
+
+.signin-btn {
+  color: $button-color;
+  margin-left: 0.5rem;
 }

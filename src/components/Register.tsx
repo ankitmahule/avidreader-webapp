@@ -38,13 +38,13 @@ const Register = ({ toggleLoginRegisterView }: RegisterProps) => {
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormValues, undefined, RegisterFormOutput>({
     resolver: zodResolver(registerSchema),
+    shouldFocusError: false,
     mode: "onSubmit",
     defaultValues: {
       firstName: "",
       lastName: "",
       email: "",
       password: "",
-      contactNo: "",
     },
   });
 
@@ -73,7 +73,8 @@ const Register = ({ toggleLoginRegisterView }: RegisterProps) => {
             )}
 
           <div className="login-form-heading">
-            <h1>Create your reader profile</h1>
+            <h1>Create your profile</h1>
+            <h4>Join the community of curious readers.</h4>
           </div>
 
           <div className="form-field flex justify-between">
@@ -175,24 +176,24 @@ const Register = ({ toggleLoginRegisterView }: RegisterProps) => {
             )}
           </div>
 
-          <div className="flex justify-between items-center">
+          <div className="form-field">
+            <button
+              className="btn w-full"
+              type="submit"
+              disabled={loading || isSubmitting}
+            >
+              {loading || isSubmitting ? "Creating account..." : "Submit"}
+            </button>
+          </div>
+          <div className="form-field flex items-center justify-center">
+            <p className="text-gray-400">Already a user?</p>
             <button
               type="button"
-              className="text-gray-400 cursor-pointer"
+              className="signin-btn cursor-pointer"
               onClick={() => toggleLoginRegisterView(false)}
             >
-              Already a user? Sign In
+              Sign In
             </button>
-
-            <div className="form-field">
-              <button
-                className="btn"
-                type="submit"
-                disabled={loading || isSubmitting}
-              >
-                {loading || isSubmitting ? "Creating account..." : "Submit"}
-              </button>
-            </div>
           </div>
         </form>
       </div>
