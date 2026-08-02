@@ -24,7 +24,7 @@ const Header = () => {
           />
         </Link>
 
-        <div className="right">
+        {/* <div className="right">
           <ul>
             {!userInfo && (
               <li>
@@ -32,7 +32,7 @@ const Header = () => {
               </li>
             )}
           </ul>
-        </div>
+        </div> */}
       </nav>
     </header>
   ) : (
