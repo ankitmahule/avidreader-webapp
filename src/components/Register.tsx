@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Alert from "./Alert";
 import { registerUser } from "../utils/auth/authActions";
 import { resetAuthState } from "../utils/auth/authSlice";
 import type { AppDispatch, RootState } from "../utils/store";
@@ -20,6 +19,17 @@ import "../scss/forms.scss";
 
 type RegisterProps = {
   toggleLoginRegisterView: (showRegister: boolean) => void;
+};
+
+const getResponseMessage = (value: unknown, fallback: string) => {
+  if (typeof value === "string") return value;
+
+  if (value && typeof value === "object" && "message" in value) {
+    const message = value.message;
+    if (typeof message === "string") return message;
+  }
+
+  return fallback;
 };
 
 const Register = ({ toggleLoginRegisterView }: RegisterProps) => {
@@ -63,19 +73,42 @@ const Register = ({ toggleLoginRegisterView }: RegisterProps) => {
     }
   };
 
+  const errorMessage = error
+    ? getResponseMessage(error, "Unable to create your account. Please try again.")
+    : null;
+
+  const successMessage = success
+    ? getResponseMessage(success, "Account created successfully.")
+    : null;
+
   return (
     <div className="form-container">
       <div className="login-form">
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          {!isSubmitting &&
-            ((error && error !== "Network Error") || success) && (
-              <Alert {...(error || success)} />
-            )}
-
           <div className="login-form-heading">
             <h1>Create your profile</h1>
             <h4>Join the community of curious readers.</h4>
           </div>
+
+          {!isSubmitting && errorMessage && (
+            <div
+              className="error-text alert-response"
+              role="alert"
+              aria-live="assertive"
+            >
+              {errorMessage}
+            </div>
+          )}
+
+          {!isSubmitting && !errorMessage && successMessage && (
+            <div
+              className="success-text alert-response"
+              role="status"
+              aria-live="polite"
+            >
+              {successMessage}
+            </div>
+          )}
 
           <div className="form-field flex justify-between">
             <div className="name-container">
@@ -120,7 +153,6 @@ const Register = ({ toggleLoginRegisterView }: RegisterProps) => {
               )}
             </div>
           </div>
-
           <div className="form-field">
             <div className="relative">
               <input
@@ -141,7 +173,6 @@ const Register = ({ toggleLoginRegisterView }: RegisterProps) => {
               </div>
             )}
           </div>
-
           <div className="form-field">
             <div className="relative">
               <input
@@ -175,7 +206,6 @@ const Register = ({ toggleLoginRegisterView }: RegisterProps) => {
               </div>
             )}
           </div>
-
           <div className="form-field">
             <button
               className="btn w-full"
